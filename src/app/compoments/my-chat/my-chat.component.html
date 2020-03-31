@@ -1,15 +1,42 @@
 <form [formGroup]="userForm" (submit)="activeSocket()">
-  <div style="margin-bottom: 20px;">
-    <input type="text" formControlName="from" name="from" placeholder="your name">
-    <input type="submit" value="active connection">
+  <div class="form-group">
+    <div class="col-md-9 mb-3">
+      <input type="text"
+             formControlName="from"
+             name="from"
+             placeholder="your name"
+      >
+      <button type="submit" class="btn btn-dark">active connection</button>
+    </div>
   </div>
-  <input type="text" formControlName="to" name="to" placeholder="send to">
+  <div class="form-group">
+    <div class="col-md-9 mb-3">
+      <input type="text" formControlName="to" name="to" placeholder="send to">
+    </div>
+  </div>
 </form>
-<form [formGroup]="messageForm" (submit)="sendMessage()">
-  <p>Message: </p>
-  <input type="text" formControlName="message" name="message" placeholder="Message">
-  <input type="submit" value="send">
-</form>
-<ul>
-  <li *ngFor="let message of messages">From: {{message.from}}, To: {{message.to}}, Message: {{message.message}}</li>
-</ul>
+<div class="card">
+  <div class="card-header">
+    Chat
+  </div>
+  <div class="card">
+    <ul class="list-group list-group-flush" *ngFor="let message of messages">
+      <li class="list-group-item">From: {{message.from}}, To: {{message.to}}, {{message.message}}</li>
+    </ul>
+  </div>
+  <div class="card-header">
+    <form [formGroup]="messageForm" (submit)="sendMessage()">
+      <div class="form-group">
+        <textarea
+          class="form-control form-rounded"
+          rows="3"
+          formControlName="message"
+          name="message"
+        ></textarea>
+        <button type="submit" class="btn btn-dark">send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
