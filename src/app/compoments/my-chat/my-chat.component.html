@@ -1,42 +1,50 @@
-<form [formGroup]="userForm" (submit)="activeSocket()">
-  <div class="form-group">
-    <div class="col-md-9 mb-3">
-      <input type="text"
-             formControlName="from"
-             name="from"
-             placeholder="your name"
-      >
-      <button type="submit" class="btn btn-dark">active connection</button>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-9 mb-3">
-      <input type="text" formControlName="to" name="to" placeholder="send to">
-    </div>
-  </div>
-</form>
-<div class="card">
-  <div class="card-header">
-    Chat
-  </div>
-  <div class="card">
-    <ul class="list-group list-group-flush" *ngFor="let message of messages">
-      <li class="list-group-item">From: {{message.from}}, To: {{message.to}}, {{message.message}}</li>
-    </ul>
-  </div>
-  <div class="card-header">
-    <form [formGroup]="messageForm" (submit)="sendMessage()">
-      <div class="form-group">
-        <textarea
-          class="form-control form-rounded"
-          rows="3"
-          formControlName="message"
-          name="message"
-        ></textarea>
-        <button type="submit" class="btn btn-dark">send</button>
+<div class="container">
+  <form [formGroup]="userForm" (submit)="activeSocket()">
+    <div class="input-group">
+      <div class="col-md-4 mb-3">
+        <input type="text"
+               formControlName="from"
+               name="from"
+               placeholder="your name"
+               class="form-control">
       </div>
-    </form>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-dark">active connection</button>
+      </span>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 mb-3">
+        <input type="text"
+               class="form-control"
+               formControlName="to"
+               name="to"
+               placeholder="send to">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      Chat
+    </div>
+    <div class="card">
+      <ul class="list-group list-group-flush" *ngFor="let message of messages">
+        <li class="list-group-item">From: {{message.from}}, To: {{message.to}}, {{message.message}}</li>
+      </ul>
+    </div>
+    <div class="card-header">
+      <form [formGroup]="messageForm" (submit)="sendMessage()">
+        <div class="form-group">
+        <textarea name="message"
+                  class="form-control form-rounded"
+                  rows="3"
+                  formControlName="message"
+        ></textarea>
+          <button type="submit" class="btn btn-dark">send</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
-
 

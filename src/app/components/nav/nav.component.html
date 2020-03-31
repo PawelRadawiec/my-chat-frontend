@@ -1,5 +1,6 @@
-<nav>
+<p>Contact list</p>
+<nav *ngFor="let user of contactList">
   <ul>
-    <li><a routerLink="/home">Home</a></li>
+      {{user.name}}, {{user.active}}
   </ul>
 </nav>

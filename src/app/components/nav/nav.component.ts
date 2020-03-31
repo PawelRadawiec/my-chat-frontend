@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -7,7 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  contactList = [
+    {
+      name: 'User1',
+      active: true
+    },
+    {
+      name: 'User2',
+      active: true
+    },
+    {
+      name: 'User3',
+      active: true
+    },
+    {
+      name: 'User4',
+      active: true
+    }
+  ];
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
