@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #E4F0FF;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 12px;
+  grid-template-areas: "header header header" "nav content content" "footer footer footer";
+  height: 100vh;
+}
+
+app-header {
+  grid-area: header;
+  text-align: center;
+}
+
+app-nav {
+  grid-area: nav;
+  margin-left: 0.6rem;
+  background-color: #2A92BF;
+}
+
+app-main {
+  grid-area: content;
+  background-color: #F4CE46;
+  padding: 25px;
+}
+
+app-footer {
+  grid-area: footer;
+  background-color: #2BB961;
+  color: white;
+  text-align: center;
+  padding: 25px 0;
+}
+
+ul li {
+  color: white;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 15px;
+}
