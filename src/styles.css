@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 body {
   margin: 0;
   padding: 0;
@@ -5,29 +7,27 @@ body {
   background-color: #E4F0FF;
 }
 
-.container {
+.grid-container {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: 150px 1fr 100px;
   grid-template-rows: auto 1fr auto;
-  grid-gap: 12px;
   grid-template-areas: "header header header" "nav content content" "footer footer footer";
   height: 100vh;
 }
 
 app-header {
   grid-area: header;
-  text-align: center;
 }
 
 app-nav {
   grid-area: nav;
-  margin-left: 0.6rem;
   background-color: #2A92BF;
 }
 
+app-my-chat,
 app-main {
   grid-area: content;
-  background-color: #F4CE46;
+  background-color: ghostwhite;
   padding: 25px;
 }
 
@@ -48,4 +48,12 @@ ul li a {
   text-decoration: none;
   display: inline-block;
   margin-bottom: 15px;
+}
+
+@media (max-width: 991px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "nav" "content" "footer";
+    grid-template-rows: auto minmax(60px, auto) 1fr minmax(70px, auto) auto;
+  }
 }
