@@ -1,15 +1,1 @@
-<form [formGroup]="userForm" (submit)="activeSocket()">
-  <div style="margin-bottom: 20px;">
-    <input type="text" formControlName="from" name="from" placeholder="your name">
-    <input type="submit" value="active connection">
-  </div>
-  <input type="text" formControlName="to" name="to" placeholder="send to">
-</form>
-<form [formGroup]="messageForm" (submit)="sendMessage()">
-  <p>Message: </p>
-  <input type="text" formControlName="message" name="message" placeholder="Message">
-  <input type="submit" value="send">
-</form>
-<ul>
-  <li *ngFor="let message of messages">From: {{message.from}}, To: {{message.to}}, Message: {{message.message}}</li>
-</ul>
+<app-my-chat></app-my-chat>
