@@ -25,6 +25,7 @@ app-nav {
 }
 
 app-my-chat,
+app-chat-activator,
 app-main {
   grid-area: content;
   background-color: ghostwhite;

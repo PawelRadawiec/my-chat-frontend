@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ChatMessage} from '../../model/chat-message.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-my-chat',
@@ -13,15 +14,18 @@ export class MyChatComponent implements OnInit {
   messageForm: FormGroup;
   userForm: FormGroup;
   messages: ChatMessage[] = [];
+  username: string;
   stompClient;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
     this.initForms();
+    this.username = this.route.snapshot.paramMap.get('username');
     this.initWebSocketConnection();
   }
 
@@ -42,6 +46,7 @@ export class MyChatComponent implements OnInit {
     const that = this;
     this.stompClient.connect({}, function () {
       that.openGlobalSocket();
+      that.openSocket();
     });
   }
 
@@ -51,6 +56,14 @@ export class MyChatComponent implements OnInit {
     });
   }
 
+  openSocket() {
+    this.stompClient.subscribe('/topic/' + this.username, (message) => {
+      this.handleResult(message);
+      this.activeSocket();
+    });
+  }
+
+
   handleResult(message) {
     if (message) {
       const messageResult: ChatMessage = JSON.parse(message.body);
@@ -58,27 +71,24 @@ export class MyChatComponent implements OnInit {
     }
   }
 
-  sendMessage() {
-    if (this.messageForm.valid) {
-      const message: ChatMessage = {
-        message: this.messageForm.value.message,
-        from: this.userForm.value.from,
-        to: this.userForm.value.to
-      };
-      this.stompClient.send('/app/send/message', {}, JSON.stringify(message));
-    }
-  }
-
   activeSocket() {
-    this.stompClient.subscribe('/topic/' + this.userForm.value.from, (message) => {
-      this.handleResult(message);
-    });
     const chatMessage: ChatMessage = {
-      from: this.userForm.value.from,
+      from: this.username,
       to: this.userForm.value.to,
       message: null,
     };
     this.stompClient.send('/app/add/user', {}, JSON.stringify(chatMessage));
+  }
+
+  sendMessage() {
+    if (this.messageForm.valid) {
+      const message: ChatMessage = {
+        from: this.username,
+        to: this.userForm.value.to,
+        message: this.messageForm.value.message
+      };
+      this.stompClient.send('/app/send/message', {}, JSON.stringify(message));
+    }
   }
 
 

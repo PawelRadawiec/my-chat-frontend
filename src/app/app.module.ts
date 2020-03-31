@@ -9,6 +9,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { MainComponent } from './components/main/main.component';
 import { FotterComponent } from './components/fotter/fotter.component';
 import {AppRoutingModule} from './app-routing.module';
+import { ChatActivatorComponent } from './components/chat-activator/chat-activator.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {AppRoutingModule} from './app-routing.module';
     HeaderComponent,
     NavComponent,
     MainComponent,
-    FotterComponent
+    FotterComponent,
+    ChatActivatorComponent
   ],
   imports: [
     BrowserModule,
