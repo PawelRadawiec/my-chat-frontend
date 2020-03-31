@@ -15,18 +15,28 @@
     </div>
   </div>
 </form>
-<form [formGroup]="messageForm" (submit)="sendMessage()">
-  <div class="form-group">
-    <div class="col-md-9 mb-3">
-      <input type="text"
-             formControlName="message"
-             name="message"
-             placeholder="Message"
-      >
-    </div>
-    <button type="submit" class="btn btn-dark">send</button>
+<div class="card">
+  <div class="card-header">
+    Chat
   </div>
-</form>
-<ul>
-  <li *ngFor="let message of messages">From: {{message.from}}, To: {{message.to}}, Message: {{message.message}}</li>
-</ul>
+  <div class="card">
+    <ul class="list-group list-group-flush" *ngFor="let message of messages">
+      <li class="list-group-item">From: {{message.from}}, To: {{message.to}}, {{message.message}}</li>
+    </ul>
+  </div>
+  <div class="card-header">
+    <form [formGroup]="messageForm" (submit)="sendMessage()">
+      <div class="form-group">
+        <textarea
+          class="form-control form-rounded"
+          rows="3"
+          formControlName="message"
+          name="message"
+        ></textarea>
+        <button type="submit" class="btn btn-dark">send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
