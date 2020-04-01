@@ -67,8 +67,13 @@ export class MyChatComponent implements OnInit {
   handleResult(message) {
     if (message) {
       const messageResult: ChatMessage = JSON.parse(message.body);
+      messageResult.isMessageOwner = (messageResult.from === this.username);
       this.messages.push(messageResult);
     }
+  }
+
+  showToLabel(message: ChatMessage) {
+    return message.to === this.username;
   }
 
   activeSocket() {

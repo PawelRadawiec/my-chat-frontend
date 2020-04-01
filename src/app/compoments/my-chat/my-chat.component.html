@@ -17,8 +17,17 @@
       Chat
     </div>
     <div class="card">
-      <ul class="list-group list-group-flush" *ngFor="let message of messages">
-        <li class="list-group-item">From: {{message.from}}, To: {{message.to}}, {{message.message}}</li>
+      <ul class="list-group" *ngFor="let message of messages">
+        <li class="list-group-item list-group-item-primary right-item" *ngIf="message.isMessageOwner">
+          <p class="message-to" *ngIf="!message.isMessageOwner">From: {{message.from}},</p>
+          {{message.message}}
+          <p class="message-to" *ngIf="showToLabel(message)">To: {{message.to}}, </p>
+        </li>
+        <li class="list-group-item left-item" *ngIf="!message.isMessageOwner">
+          <p class="message-to" *ngIf="!message.isMessageOwner">From: {{message.from}},</p>
+          {{message.message}}
+          <p class="message-to" *ngIf="!showToLabel(message)">To: {{message.to}}, </p>
+        </li>
       </ul>
     </div>
     <div class="card-header">
