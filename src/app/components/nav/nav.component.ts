@@ -1,4 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
+
+export class SystemUser {
+  id: number;
+  username: string;
+}
 
 @Component({
   selector: 'app-nav',
@@ -7,29 +14,37 @@ import {Component, OnInit} from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  contactList = [
-    {
-      name: 'User1',
-      active: true
-    },
-    {
-      name: 'User2',
-      active: true
-    },
-    {
-      name: 'User3',
-      active: true
-    },
-    {
-      name: 'User4',
-      active: true
-    }
-  ];
+  stompClient;
+  systemUserList: SystemUser[] = [];
 
   constructor() {
   }
 
   ngOnInit() {
+    this.initWebSocketConnection();
   }
+
+  initWebSocketConnection() {
+    const ws = new SockJS('http://localhost:8080/ws');
+    this.stompClient = Stomp.over(ws);
+    const that = this;
+    this.stompClient.connect({}, function () {
+      that.openSocket();
+    });
+  }
+
+  openSocket() {
+    this.stompClient.subscribe('/topic/users', (systemUser) => {
+      this.handleResult(systemUser);
+    });
+  }
+
+  handleResult(user) {
+    if (user) {
+      const systemUser: SystemUser = JSON.parse(user.body);
+      this.systemUserList.push(systemUser);
+    }
+  }
+
 
 }

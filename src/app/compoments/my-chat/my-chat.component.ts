@@ -4,6 +4,7 @@ import {ChatMessage} from '../../model/chat-message.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import {ActivatedRoute} from '@angular/router';
+import {SystemUser} from '../../components/nav/nav.component';
 
 @Component({
   selector: 'app-my-chat',
@@ -45,6 +46,11 @@ export class MyChatComponent implements OnInit {
     this.stompClient = Stomp.over(ws);
     const that = this;
     this.stompClient.connect({}, function () {
+      const systemUser: SystemUser = {
+        id: 1,
+        username: that.username
+      };
+      that.stompClient.send('/app/send/user', {}, JSON.stringify(systemUser));
       that.openGlobalSocket();
       that.openSocket();
     });
@@ -62,7 +68,6 @@ export class MyChatComponent implements OnInit {
       this.activeSocket();
     });
   }
-
 
   handleResult(message) {
     if (message) {
