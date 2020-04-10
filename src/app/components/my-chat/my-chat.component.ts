@@ -45,7 +45,7 @@ export class MyChatComponent implements OnInit {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);
     const that = this;
-    this.stompClient.connect({}, function () {
+    this.stompClient.connect({},  () => {
       const systemUser: SystemUser = {
         id: 1,
         username: that.username
@@ -57,7 +57,7 @@ export class MyChatComponent implements OnInit {
   }
 
   openGlobalSocket() {
-    this.stompClient.subscribe('/topic', (message) => {
+    this.stompClient.subscribe('/topic/message', (message) => {
       this.handleResult(message);
     });
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 
@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);
     const that = this;
-    this.stompClient.connect({}, function () {
+    this.stompClient.connect({}, () => {
       that.openSocket();
     });
   }
