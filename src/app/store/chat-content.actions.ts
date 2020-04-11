@@ -13,6 +13,11 @@ export class ChatContentGetById {
     constructor(public id: number) { }
 }
 
+export class ChatContentGetByUsername {
+    static readonly type = '[ChatContent] GetByUsername';
+    constructor(public username: string) { }
+}
+
 
 
 

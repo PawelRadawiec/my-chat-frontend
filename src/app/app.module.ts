@@ -14,6 +14,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ChatContentState } from './store/chat-content.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     NgxsModule.forRoot([
       ChatContentState
     ]),
