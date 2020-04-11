@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { SystemUser } from '../components/nav/nav.component';
-import { ChatContentCreate, ChatContentGetByUsername } from '../store/chat-content.actions';
+import { ChatContentGetByUsername } from '../store/chat-content.actions';
 import { ChatContent } from '../model/chat-content.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ChatContentState } from '../store/chat-content.state';
 
 
 @Injectable()
@@ -11,9 +13,11 @@ export class ChatContentResolver implements Resolve<any> {
 
     constructor(private store: Store) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot): Observable<ChatContent> {
         const username = route.params.username;
-        this.store.dispatch(new ChatContentGetByUsername(username));
+        return this.store.dispatch(new ChatContentGetByUsername(username)).pipe(
+            map(() => this.store.selectSnapshot(ChatContentState))
+        );
     }
 
 }
