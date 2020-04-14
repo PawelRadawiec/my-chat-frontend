@@ -1,10 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ChatMessage} from '../../model/chat-message.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChatMessage } from '../../model/chat-message.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import {ActivatedRoute} from '@angular/router';
-import {SystemUser} from '../../components/nav/nav.component';
+import { ActivatedRoute } from '@angular/router';
+import { SystemUser } from '../../components/nav/nav.component';
+import { ChatContent } from 'src/app/model/chat-content.model';
+import { ChatContentState } from 'src/app/store/chat-content.state';
+import { Observable } from 'rxjs';
+import { Select } from '@ngxs/store';
 
 @Component({
   selector: 'app-my-chat',
@@ -12,11 +16,13 @@ import {SystemUser} from '../../components/nav/nav.component';
   styleUrls: ['./my-chat.component.css']
 })
 export class MyChatComponent implements OnInit {
+  @Select(ChatContentState.getChatContent) chatContent$: Observable<ChatContent>;
+
+  chatContent: ChatContent;
   messageForm: FormGroup;
   userForm: FormGroup;
-  messages: ChatMessage[] = [];
   username: string;
-  stompClient;
+  stompClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,24 +34,14 @@ export class MyChatComponent implements OnInit {
     this.initForms();
     this.username = this.route.snapshot.paramMap.get('username');
     this.initWebSocketConnection();
-  }
-
-  initForms() {
-    this.messageForm = this.formBuilder.group({
-      message: ['', Validators.required]
-    });
-    this.userForm = this.formBuilder.group(({
-      username: ['', Validators.required],
-      from: ['', Validators.required],
-      to: ['']
-    }));
+    this.chatContent$.subscribe(content => this.chatContent = content);
   }
 
   initWebSocketConnection() {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);
     const that = this;
-    this.stompClient.connect({},  () => {
+    this.stompClient.connect({}, () => {
       const systemUser: SystemUser = {
         id: 1,
         username: that.username
@@ -69,12 +65,15 @@ export class MyChatComponent implements OnInit {
     });
   }
 
-  handleResult(message) {
+  handleResult(message: { body: string; }) {
     if (message) {
-      const messageResult: ChatMessage = JSON.parse(message.body);
-      messageResult.isMessageOwner = (messageResult.from === this.username);
-      this.messages.push(messageResult);
+      const messageResult = JSON.parse(message.body);
+      this.chatContent.messages.push(messageResult.body);
     }
+  }
+
+  messageOwner(message: ChatMessage) {
+    return message.from === this.username;
   }
 
   showToLabel(message: ChatMessage) {
@@ -95,10 +94,22 @@ export class MyChatComponent implements OnInit {
       const message: ChatMessage = {
         from: this.username,
         to: this.userForm.value.to,
-        message: this.messageForm.value.message
+        message: this.messageForm.value.message,
+        content: this.chatContent
       };
       this.stompClient.send('/app/send/message', {}, JSON.stringify(message));
     }
+  }
+
+  initForms() {
+    this.messageForm = this.formBuilder.group({
+      message: ['', Validators.required]
+    });
+    this.userForm = this.formBuilder.group(({
+      username: ['', Validators.required],
+      from: ['', Validators.required],
+      to: ['']
+    }));
   }
 
 
