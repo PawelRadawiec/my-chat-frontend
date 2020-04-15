@@ -9,3 +9,8 @@
 .message-to {
   font-size: x-small;
 }
+
+.scroll {
+  max-height: 400px;
+  overflow-y: auto;
+}
