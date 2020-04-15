@@ -9,7 +9,7 @@ import {ChatContent} from 'src/app/model/chat-content.model';
 import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
 import {Observable} from 'rxjs';
 import {Select, Store} from '@ngxs/store';
-import {ChatContentSaveRecivedMessage} from '../../store/chat-content/chat-content.actions';
+import {ChatContentSaveReceivedMessage} from '../../store/chat-content/chat-content.actions';
 
 @Component({
   selector: 'app-my-chat',
@@ -79,7 +79,7 @@ export class MyChatComponent implements OnInit {
       };
       if (messageResult.body.from !== this.username) {
         console.log('chatMessage: ', chatMessage);
-        this.store.dispatch(new ChatContentSaveRecivedMessage(chatMessage));
+        this.store.dispatch(new ChatContentSaveReceivedMessage(chatMessage));
       }
     }
   }

@@ -1,6 +1,6 @@
 import {State, Selector, Action, StateContext} from '@ngxs/store';
 import {ChatContent} from '../../model/chat-content.model';
-import {ChatContentCreate, ChatContentGetByUsername, ChatContentSaveRecivedMessage} from './chat-content.actions';
+import {ChatContentCreate, ChatContentGetByUsername, ChatContentSaveReceivedMessage} from './chat-content.actions';
 import {ChatContentService} from '../../service/chat-content.service';
 import {tap} from 'rxjs/operators';
 
@@ -46,8 +46,8 @@ export class ChatContentState {
       }));
   }
 
-  @Action(ChatContentSaveRecivedMessage)
-  saveRecievedMessage({getState, setState}: StateContext<ChatContentStateModel>, {chatMessage}: ChatContentSaveRecivedMessage) {
+  @Action(ChatContentSaveReceivedMessage)
+  saveReceivedMessage({getState, setState}: StateContext<ChatContentStateModel>, {chatMessage}: ChatContentSaveReceivedMessage) {
     return this.contentService.saveMessage(chatMessage)
       .pipe(tap((result) => {
         console.log('message saved: ', result);

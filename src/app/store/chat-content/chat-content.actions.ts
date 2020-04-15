@@ -23,8 +23,8 @@ export class ChatContentGetByUsername {
   }
 }
 
-export class ChatContentSaveRecivedMessage {
-  static readonly type = '[ChatContent] SaveRecivedMessage';
+export class ChatContentSaveReceivedMessage {
+  static readonly type = '[ChatContent] SaveReceivedMessage';
 
   constructor(public chatMessage: ChatMessage) {
   }
