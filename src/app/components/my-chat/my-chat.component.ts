@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChatMessage } from '../../model/chat-message.model';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ChatMessage} from '../../model/chat-message.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import { ActivatedRoute } from '@angular/router';
-import { SystemUser } from '../../components/nav/nav.component';
-import { ChatContent } from 'src/app/model/chat-content.model';
-import { ChatContentState } from 'src/app/store/chat-content/chat-content.state';
-import { Observable } from 'rxjs';
-import { Select } from '@ngxs/store';
+import {ActivatedRoute} from '@angular/router';
+import {SystemUser} from '../../components/nav/nav.component';
+import {ChatContent} from 'src/app/model/chat-content.model';
+import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
+import {Observable} from 'rxjs';
+import {Select, Store} from '@ngxs/store';
+import {ChatContentSaveRecivedMessage} from '../../store/chat-content/chat-content.actions';
 
 @Component({
   selector: 'app-my-chat',
@@ -26,7 +27,8 @@ export class MyChatComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store
   ) {
   }
 
@@ -69,6 +71,16 @@ export class MyChatComponent implements OnInit {
     if (message) {
       const messageResult = JSON.parse(message.body);
       this.chatContent.messages.push(messageResult.body);
+      const chatMessage: ChatMessage = {
+        message: messageResult.body.message,
+        from: messageResult.body.from,
+        to: messageResult.body.to,
+        content: this.chatContent
+      };
+      if (messageResult.body.from !== this.username) {
+        console.log('chatMessage: ', chatMessage);
+        this.store.dispatch(new ChatContentSaveRecivedMessage(chatMessage));
+      }
     }
   }
 

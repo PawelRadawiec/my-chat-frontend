@@ -15,6 +15,7 @@ import { ChatContentState } from './store/chat-content/chat-content.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { HttpClientModule } from '@angular/common/http';
+import {SystemUserState} from './store/system-user/system-user.state';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
     NgxsModule.forRoot([
-      ChatContentState
+      ChatContentState,
+      SystemUserState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot()
