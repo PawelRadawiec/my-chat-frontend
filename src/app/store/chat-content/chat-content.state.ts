@@ -1,7 +1,7 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { ChatContent } from '../model/chat-content.model';
+import { ChatContent } from '../../model/chat-content.model';
 import { ChatContentCreate, ChatContentGetByUsername } from './chat-content.actions';
-import { ChatContentService } from '../service/chat-content.service';
+import { ChatContentService } from '../../service/chat-content.service';
 import { tap } from 'rxjs/operators';
 
 

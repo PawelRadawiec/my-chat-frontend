@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChatActivatorComponent } from './components/chat-activator/chat-activator.component';
 import { MyChatComponent } from './components/my-chat/my-chat.component';
 import { NgxsModule } from '@ngxs/store';
-import { ChatContentState } from './store/chat-content.state';
+import { ChatContentState } from './store/chat-content/chat-content.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { HttpClientModule } from '@angular/common/http';

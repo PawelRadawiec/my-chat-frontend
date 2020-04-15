@@ -1,4 +1,4 @@
-import { ChatContent } from '../model/chat-content.model';
+import { ChatContent } from '../../model/chat-content.model';
 
 export class ChatContentCreate {
     static readonly type = '[ChatContent] Create';

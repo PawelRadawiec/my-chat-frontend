@@ -6,7 +6,7 @@ import * as Stomp from 'stompjs';
 import { ActivatedRoute } from '@angular/router';
 import { SystemUser } from '../../components/nav/nav.component';
 import { ChatContent } from 'src/app/model/chat-content.model';
-import { ChatContentState } from 'src/app/store/chat-content.state';
+import { ChatContentState } from 'src/app/store/chat-content/chat-content.state';
 import { Observable } from 'rxjs';
 import { Select } from '@ngxs/store';
 
