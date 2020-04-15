@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ChatMessage} from '../../model/chat-message.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChatMessage } from '../../model/chat-message.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import {ActivatedRoute} from '@angular/router';
-import {SystemUser} from '../../components/nav/nav.component';
-import {ChatContent} from 'src/app/model/chat-content.model';
-import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
-import {Observable} from 'rxjs';
-import {Select, Store} from '@ngxs/store';
-import {ChatContentSaveReceivedMessage} from '../../store/chat-content/chat-content.actions';
+import { ActivatedRoute } from '@angular/router';
+import { SystemUser } from '../../components/nav/nav.component';
+import { ChatContent } from 'src/app/model/chat-content.model';
+import { ChatContentState } from 'src/app/store/chat-content/chat-content.state';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { ChatContentSaveReceivedMessage } from '../../store/chat-content/chat-content.actions';
 
 @Component({
   selector: 'app-my-chat',
@@ -19,7 +19,7 @@ import {ChatContentSaveReceivedMessage} from '../../store/chat-content/chat-cont
 export class MyChatComponent implements OnInit {
   @Select(ChatContentState.getChatContent) chatContent$: Observable<ChatContent>;
 
-  chatContent: ChatContent;
+  chatContent: ChatContent = new ChatContent();
   messageForm: FormGroup;
   userForm: FormGroup;
   username: string;
@@ -36,7 +36,12 @@ export class MyChatComponent implements OnInit {
     this.initForms();
     this.username = this.route.snapshot.paramMap.get('username');
     this.initWebSocketConnection();
-    this.chatContent$.subscribe(content => this.chatContent = content);
+    this.chatContent$.subscribe(content => {
+      if (content) {
+        this.chatContent = content;
+      }
+    }
+    );
   }
 
   initWebSocketConnection() {

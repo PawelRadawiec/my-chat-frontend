@@ -16,7 +16,7 @@
     <div class="card-header">
       Chat
     </div>
-    <div class="card">
+    <div class="card scroll">
       <ul class="list-group" *ngFor="let message of chatContent.messages">
         <li class="list-group-item list-group-item-primary right-item" *ngIf="messageOwner(message)">
           <p class="message-to" *ngIf="!messageOwner(message)">From: {{message.from}},</p>
