@@ -4,7 +4,7 @@ import { ChatMessage } from '../../model/chat-message.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { ActivatedRoute } from '@angular/router';
-import { SystemUser } from '../../components/nav/nav.component';
+import { SystemUser } from '../nav/nav.component';
 import { ChatContent } from 'src/app/model/chat-content.model';
 import { ChatContentState } from 'src/app/store/chat-content/chat-content.state';
 import { Observable } from 'rxjs';

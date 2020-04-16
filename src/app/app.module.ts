@@ -16,6 +16,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { HttpClientModule } from '@angular/common/http';
 import {SystemUserState} from './store/system-user/system-user.state';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {SystemUserState} from './store/system-user/system-user.state';
     NavComponent,
     MainComponent,
     FotterComponent,
-    ChatActivatorComponent
+    ChatActivatorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
