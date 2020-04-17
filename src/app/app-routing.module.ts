@@ -5,15 +5,21 @@ import {MyChatComponent} from './components/my-chat/my-chat.component';
 import {ChatContentResolver} from './resolvers/chat-contnt-resolver';
 import {ChatSystemUserResolver} from './resolvers/chat-system-user.resolver';
 import {LoginComponent} from './components/login/login.component';
+import {AuthGuard} from './guards/auth.guard';
 
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
-  {path: 'home', component: MainComponent},
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    component: MainComponent
+  },
   {path: 'login', component: LoginComponent},
   {
     path: 'chat/:username',
     component: MyChatComponent,
+    canActivate: [AuthGuard],
     resolve: {
       activationResolver: ChatContentResolver,
       chatUserListResolver: ChatSystemUserResolver

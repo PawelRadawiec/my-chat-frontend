@@ -3,6 +3,7 @@ import {Store} from '@ngxs/store';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthorizationService} from '../../service/authorization.service';
+import {GetAuthorization} from '../../store/authorization/authotization.actions';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
       login: this.loginForm.value.login,
       password: this.loginForm.value.password
     };
+    this.store.dispatch(new GetAuthorization(formValue.login, formValue.password));
   }
 
   initLoginForm() {

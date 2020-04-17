@@ -14,4 +14,8 @@ export class SystemUserService {
     return this.http.get<SystemUser[]>(`http://localhost:8080/chat-system-user/list`);
   }
 
+  isUserLoggedIn() {
+    return sessionStorage.getItem('authUser') !== null;
+  }
+
 }

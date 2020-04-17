@@ -6,7 +6,6 @@ import {SystemUser} from '../components/nav/nav.component';
 export class TokenResponse {
   token: string;
   user: SystemUser;
-
 }
 
 @Injectable({
@@ -24,6 +23,20 @@ export class AuthorizationService {
       password: password
     };
     return this.http.post<TokenResponse>('http://localhost:8080/authenticate', body);
+  }
+
+  isUserLoggedIn() {
+    return sessionStorage.getItem('authUser') !== null;
+  }
+
+  getAuthUser() {
+    return sessionStorage.getItem('authUser');
+  }
+
+  getAuthToken() {
+    if (this.getAuthUser()) {
+      return sessionStorage.getItem('token');
+    }
   }
 
 
