@@ -6,6 +6,7 @@ import {ChatContentResolver} from './resolvers/chat-contnt-resolver';
 import {ChatSystemUserResolver} from './resolvers/chat-system-user.resolver';
 import {LoginComponent} from './components/login/login.component';
 import {AuthGuard} from './guards/auth.guard';
+import {LogoutComponent} from './components/logout/logout.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: MainComponent
   },
-  {path: 'login', component: LoginComponent},
   {
     path: 'chat/:username',
     component: MyChatComponent,
@@ -24,7 +24,9 @@ const routes: Routes = [
       activationResolver: ChatContentResolver,
       chatUserListResolver: ChatSystemUserResolver
     }
-  }
+  },
+  {path: 'login', component: LoginComponent},
+  {path: 'logout', component: LogoutComponent},
 ];
 
 @NgModule({

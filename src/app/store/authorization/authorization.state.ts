@@ -43,7 +43,7 @@ export class AuthorizationState {
         tap((result) => {
           sessionStorage.setItem('authUser', result.user.username);
           sessionStorage.setItem('token', `Bearer ${result.token}`);
-          this.router.navigate(['home']);
+          this.router.navigate([`chat/${result.user.username}`]);
           setState({
             ...state,
             loggedUser: null,

@@ -19,6 +19,7 @@ import {SystemUserState} from './store/system-user/system-user.state';
 import {LoginComponent} from './components/login/login.component';
 import {AuthorizationState} from './store/authorization/authorization.state';
 import {HttpInterceptorAuthService} from './interceptors/http-interceptor-auth.service';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {HttpInterceptorAuthService} from './interceptors/http-interceptor-auth.s
     MainComponent,
     FotterComponent,
     ChatActivatorComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

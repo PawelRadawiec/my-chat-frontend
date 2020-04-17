@@ -39,5 +39,10 @@ export class AuthorizationService {
     }
   }
 
+  logout() {
+    sessionStorage.removeItem('authUser');
+    sessionStorage.removeItem('token');
+  }
+
 
 }

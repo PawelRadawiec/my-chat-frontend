@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+import {HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-fotter',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FotterComponent implements OnInit {
 
-  constructor() { }
+  // @HostListener('window:unload', ['$event'])
+  // unloadHandler() {
+  //   sessionStorage.clear();
+  // }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
