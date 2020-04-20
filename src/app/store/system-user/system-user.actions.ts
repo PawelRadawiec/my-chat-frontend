@@ -10,3 +10,10 @@ export class SystemUserRegistration {
   static readonly type = '[SystemUser] Registration';
   constructor(public request: SystemUser) { }
 }
+
+export class SystemUserRegistrationFailed {
+  static readonly type = '[SystemUser] RegistrationFailed';
+  constructor(public errorMap: { [key: string]: string; }) {
+
+  }
+}
