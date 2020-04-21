@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SystemUser} from '../components/nav/nav.component';
+import {SystemUser} from '../model/system-user.model';
 
 
 export class TokenResponse {

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SystemUser} from '../components/nav/nav.component';
+import {SystemUser} from '../model/system-user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class SystemUserService {
   }
 
   getUserList() {
-    return this.http.get<SystemUser[]>(`${this.baseUrl}/chat-system-user/list`);
+    return this.http.get<SystemUser[]>(`${this.baseUrl}/chat-user/list`);
   }
 
   registration(request: SystemUser) {

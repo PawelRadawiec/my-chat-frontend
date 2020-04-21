@@ -1,5 +1,5 @@
-import { SystemUser } from '../components/nav/nav.component';
 import { ChatMessage } from './chat-message.model';
+import {SystemUser} from './system-user.model';
 
 
 export class ChatContent {

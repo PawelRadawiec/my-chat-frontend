@@ -1,4 +1,5 @@
-import { SystemUser } from 'src/app/components/nav/nav.component';
+import {SystemUser} from '../../model/system-user.model';
+
 
 export class SystemUserGetList {
   static readonly type = '[SystemUser] GetList';

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
+import {SystemUser} from '../../model/system-user.model';
 
-export class SystemUser {
-  id: number;
-  username: string;
-}
 
 @Component({
   selector: 'app-nav',

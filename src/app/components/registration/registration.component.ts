@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {SystemUser} from '../nav/nav.component';
 import {SystemUserRegistration} from 'src/app/store/system-user/system-user.actions';
 import {ErrorService} from '../../service/error.service';
+import {SystemUser} from '../../model/system-user.model';
 
 @Component({
   selector: 'app-registration',
@@ -23,11 +23,16 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.request = new SystemUser();
     this.initRegistrationForm();
   }
 
   onSubmit() {
+    const value = this.registrationForm.value;
+    this.request = {
+      username: value.username,
+      email: value.email,
+      password: value.password
+    };
     this.store.dispatch(new SystemUserRegistration(this.request));
   }
 

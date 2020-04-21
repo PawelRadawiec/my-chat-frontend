@@ -1,9 +1,10 @@
-import {SystemUser} from '../../components/nav/nav.component';
+
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {AuthorizationService, TokenResponse} from '../../service/authorization.service';
 import {GetAuthorization} from './authotization.actions';
 import {tap} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';
+import {SystemUser} from '../../model/system-user.model';
 
 
 export class AuthorizationStateModel {

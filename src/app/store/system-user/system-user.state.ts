@@ -1,9 +1,9 @@
-import {SystemUser} from '../../components/nav/nav.component';
 import {Action, State} from '../../../../node_modules/@ngxs/store';
 import {SystemUserService} from '../../service/system-user.service';
 import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed} from './system-user.actions';
 import {Selector, StateContext} from '@ngxs/store';
 import {tap, catchError} from 'rxjs/internal/operators';
+import {SystemUser} from '../../model/system-user.model';
 
 
 export class SystemUserStateModel {
