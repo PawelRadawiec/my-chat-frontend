@@ -24,7 +24,9 @@ app-nav {
   background-color: #2A92BF;
 }
 
+app-login,
 app-my-chat,
+app-registration,
 app-chat-activator,
 app-main {
   grid-area: content;
