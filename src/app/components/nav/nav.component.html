@@ -1,6 +1,6 @@
 <p>Contact list</p>
-<nav *ngFor="let user of systemUserList">
+<nav *ngFor="let contact of chatContact.contacts">
   <ul>
-      {{user.username}}
+    {{contact.username}} {{contact.active}}
   </ul>
 </nav>

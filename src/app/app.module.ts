@@ -21,6 +21,7 @@ import {AuthorizationState} from './store/authorization/authorization.state';
 import {HttpInterceptorAuthService} from './interceptors/http-interceptor-auth.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import {ChatContactsState} from './store/contacts/contacts.state';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     NgxsModule.forRoot([
       ChatContentState,
       SystemUserState,
+      ChatContactsState,
       AuthorizationState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),

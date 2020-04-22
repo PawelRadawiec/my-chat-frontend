@@ -30,6 +30,7 @@ export class ChatContactsState {
     const state = getState;
     return this.contactService.getByUsername(username)
       .pipe(tap((result) => {
+        console.log('RESULT: ', result);
         setState({
           ...state,
           chatContact: result
