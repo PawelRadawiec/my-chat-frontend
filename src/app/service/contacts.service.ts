@@ -12,8 +12,8 @@ export class ContactsService {
   constructor(private http: HttpClient) {
   }
 
-  getByUsername(username: string) {
-    return this.http.get<ChatContentContacts>(`${this.baseUrl}/contacts/${username}`);
+  getChatContacts() {
+    return this.http.get<ChatContentContacts>(`${this.baseUrl}/contacts`);
   }
 
 

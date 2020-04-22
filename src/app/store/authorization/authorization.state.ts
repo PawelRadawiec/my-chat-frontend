@@ -1,7 +1,6 @@
-
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {AuthorizationService, TokenResponse} from '../../service/authorization.service';
-import {GetAuthorization} from './authotization.actions';
+import {GetAuthorization, SetSystemUser} from './authotization.actions';
 import {tap} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';
 import {SystemUser} from '../../model/system-user.model';
@@ -36,6 +35,11 @@ export class AuthorizationState {
     return state.isLogged;
   }
 
+  @Selector()
+  static getLoggedUser(state: AuthorizationStateModel) {
+    return state.loggedUser;
+  }
+
   @Action(GetAuthorization)
   authorization({getState, setState}: StateContext<AuthorizationStateModel>, {login, password}: GetAuthorization) {
     const state = getState;
@@ -53,6 +57,15 @@ export class AuthorizationState {
           });
         })
       );
+  }
+
+  @Action(SetSystemUser)
+  setSystemUser(authState: StateContext<AuthorizationStateModel>, {user}: SetSystemUser) {
+    authState.setState(({
+      ...authState.getState,
+      loggedUser: user,
+      isLogged: true
+    }));
   }
 
 

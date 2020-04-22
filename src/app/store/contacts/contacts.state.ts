@@ -2,7 +2,7 @@ import {ChatContentContacts} from '../../model/chat-content-contacts.model';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {ContactsService} from '../../service/contacts.service';
 import {tap} from 'rxjs/operators';
-import {ChatContactByUsername} from './contacts.actions';
+import {GetChatContact} from './contacts.actions';
 
 
 export class ChatContactsStateModel {
@@ -25,12 +25,11 @@ export class ChatContactsState {
     return state.chatContact;
   }
 
-  @Action(ChatContactByUsername)
-  getByUserName({getState, setState}: StateContext<ChatContactsStateModel>, {username}: ChatContactByUsername) {
+  @Action(GetChatContact)
+  getByUserName({getState, setState}: StateContext<ChatContactsStateModel>, {}: GetChatContact) {
     const state = getState;
-    return this.contactService.getByUsername(username)
+    return this.contactService.getChatContacts()
       .pipe(tap((result) => {
-        console.log('RESULT: ', result);
         setState({
           ...state,
           chatContact: result

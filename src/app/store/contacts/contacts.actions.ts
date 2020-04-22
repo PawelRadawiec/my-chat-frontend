@@ -1,8 +1,8 @@
 
 
-export class ChatContactByUsername {
+export class GetChatContact {
   static type = '[ChatContacts] ChatContact';
 
-  constructor(public username: string) {
+  constructor() {
   }
 }

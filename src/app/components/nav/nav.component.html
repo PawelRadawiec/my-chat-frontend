@@ -1,6 +1,6 @@
 <p>Contact list</p>
-<nav *ngFor="let contact of chatContact.contacts">
-  <ul>
+<nav *ngFor="let contact of chatContact?.contacts">
+  <ul (click)="selectContact(contact)">
     {{contact.username}} {{contact.active}}
   </ul>
 </nav>
