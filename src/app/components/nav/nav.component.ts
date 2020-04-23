@@ -1,12 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import {SystemUser} from '../../model/system-user.model';
 import {ChatContact, ChatContentContacts} from '../../model/chat-content-contacts.model';
-import {Select} from '@ngxs/store';
+import {Select, Store} from '@ngxs/store';
 import {ChatContactsState} from '../../store/contacts/contacts.state';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {SystemUserSearch} from '../../store/system-user/system-user.actions';
+import {SystemUserState} from '../../store/system-user/system-user.state';
 
 
 @Component({
@@ -14,14 +17,21 @@ import {Router} from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   @Select(ChatContactsState.getChatContact) chatContact$: Observable<ChatContentContacts>;
+  @Select(SystemUserState.getNavSearchResult) searchResult$: Observable<SystemUser[]>;
 
   stompClient;
+  searchForm: FormGroup;
+  searchResult: SystemUser[] = [];
   systemUserList: SystemUser[] = [];
   chatContact: ChatContentContacts;
 
-  constructor(private router: Router) {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
   }
 
   ngOnInit() {
@@ -30,11 +40,31 @@ export class NavComponent implements OnInit {
         this.chatContact = chatContact;
       }
     });
+    this.searchResult$.subscribe((searchResult) => {
+      if (searchResult) {
+        this.searchResult = searchResult;
+      }
+    });
     this.initWebSocketConnection();
+    this.initSearchForm();
+  }
+
+  ngOnDestroy() {
   }
 
   selectContact(contact: ChatContact) {
     this.router.navigate([`chat/${contact.username}`]);
+  }
+
+  initSearchForm() {
+    this.searchForm = this.formBuilder.group({
+      username: []
+    });
+  }
+
+  search() {
+    const username = this.searchForm.value.username;
+    this.store.dispatch(new SystemUserSearch(username));
   }
 
   initWebSocketConnection() {

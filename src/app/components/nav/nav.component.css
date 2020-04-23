@@ -6,3 +6,13 @@
 .status {
   display: inline;
 }
+
+.search-form {
+  margin: 10px;
+}
+
+.search-button {
+  margin-top: 10px;
+  font-size: 0.8em;
+  padding: 6px;
+}

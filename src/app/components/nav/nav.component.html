@@ -1,3 +1,33 @@
+<form class="search-form" [formGroup]="searchForm" (ngSubmit)="search()">
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control input-sm col-xs-3"
+      placeholder="username"
+      id="username"
+      formControlName="username"
+    >
+    <button type="submit" class="btn btn-outline-dark search-button">Search</button>
+  </div>
+</form>
+
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th scope="col">Search result</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of searchResult">
+    <td>
+      <div class="username">
+        {{user.username}}
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
 <table class="table table-sm">
   <thead>
   <tr>

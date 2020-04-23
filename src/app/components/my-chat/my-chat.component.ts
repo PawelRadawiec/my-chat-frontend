@@ -38,8 +38,10 @@ export class MyChatComponent implements OnInit {
   ngOnInit() {
     this.initForms();
     this.loggedUser$.subscribe((user) => {
-      this.loggedUser = user;
-      this.username = user.username;
+      if (user) {
+        this.loggedUser = user;
+        this.username = user.username;
+      }
     });
     this.initWebSocketConnection();
     this.chatContent$.subscribe(content => {
@@ -59,7 +61,7 @@ export class MyChatComponent implements OnInit {
         id: 1,
         username: that.username
       };
-     // that.stompClient.send('/app/send/user', {}, JSON.stringify(systemUser));
+      // that.stompClient.send('/app/send/user', {}, JSON.stringify(systemUser));
       that.openGlobalSocket();
       that.openSocket();
     });
