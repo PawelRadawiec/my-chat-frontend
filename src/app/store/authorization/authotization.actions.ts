@@ -15,3 +15,7 @@ export class SetSystemUser {
 
   }
 }
+
+export class SystemUserLogout {
+  static readonly type = '[Authorization] Logout';
+}

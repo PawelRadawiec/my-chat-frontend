@@ -15,6 +15,9 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {
     path: 'home',
+    resolve: {
+      chatContactsResolver: ChatContactsResolver
+    },
     canActivate: [AuthGuard],
     component: MainComponent
   },

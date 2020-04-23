@@ -1,7 +1,7 @@
 <div class="grid-container">
   <app-header></app-header>
 
-  <app-nav></app-nav>
+  <app-nav *ngIf="logged$ | async"></app-nav>
 
   <router-outlet></router-outlet>
 

@@ -1,6 +1,6 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {AuthorizationService, TokenResponse} from '../../service/authorization.service';
-import {GetAuthorization, SetSystemUser} from './authotization.actions';
+import {GetAuthorization, SetSystemUser, SystemUserLogout} from './authotization.actions';
 import {tap} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';
 import {SystemUser} from '../../model/system-user.model';
@@ -48,7 +48,7 @@ export class AuthorizationState {
         tap((result) => {
           sessionStorage.setItem('authUser', result.user.username);
           sessionStorage.setItem('token', `Bearer ${result.token}`);
-          this.router.navigate([`chat/${result.user.username}`]);
+          this.router.navigate([`home`]);
           setState({
             ...state,
             loggedUser: null,
@@ -66,6 +66,16 @@ export class AuthorizationState {
       loggedUser: user,
       isLogged: true
     }));
+  }
+
+  @Action(SystemUserLogout)
+  logout(authState: StateContext<AuthorizationStateModel>, {}: SystemUserLogout) {
+    this.authService.logout();
+    authState.setState({
+      ...authState.getState,
+      loggedUser: null,
+      isLogged: false
+    });
   }
 
 

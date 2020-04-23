@@ -8,7 +8,6 @@ import {NavComponent} from './components/nav/nav.component';
 import {MainComponent} from './components/main/main.component';
 import {FotterComponent} from './components/fotter/fotter.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ChatActivatorComponent} from './components/chat-activator/chat-activator.component';
 import {MyChatComponent} from './components/my-chat/my-chat.component';
 import {NgxsModule} from '@ngxs/store';
 import {ChatContentState} from './store/chat-content/chat-content.state';
@@ -31,7 +30,6 @@ import {ChatContactsState} from './store/contacts/contacts.state';
     NavComponent,
     MainComponent,
     FotterComponent,
-    ChatActivatorComponent,
     LoginComponent,
     LogoutComponent,
     RegistrationComponent
