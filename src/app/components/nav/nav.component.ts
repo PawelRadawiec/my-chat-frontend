@@ -67,6 +67,10 @@ export class NavComponent implements OnInit, OnDestroy {
     this.store.dispatch(new SystemUserSearch(username));
   }
 
+  addContact() {
+    // add contact action
+  }
+
   initWebSocketConnection() {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);

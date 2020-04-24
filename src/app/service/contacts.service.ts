@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ChatContentContacts} from '../model/chat-content-contacts.model';
+import {ChatContentContacts, ChatContact} from '../model/chat-content-contacts.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,11 @@ export class ContactsService {
   getChatContacts() {
     return this.http.get<ChatContentContacts>(`${this.baseUrl}/contacts`);
   }
+
+  addChatCootact(chatContact: ChatContact) {
+    return this.http.post<ChatContact[]>(`${this.baseUrl}/contacts/add/contact`, chatContact);
+  }
+
 
 
 }

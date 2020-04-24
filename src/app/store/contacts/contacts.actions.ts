@@ -1,3 +1,4 @@
+import { ChatContact } from 'src/app/model/chat-content-contacts.model';
 
 
 export class GetChatContact {
@@ -5,4 +6,11 @@ export class GetChatContact {
 
   constructor() {
   }
+}
+
+export class AddContact {
+    static type = '[ChatContacts] AddContact';
+    constructor(public chatContact: ChatContact) {
+
+    }
 }
