@@ -18,7 +18,7 @@ import {AddContact, SearchContact} from '../../store/contacts/contacts.actions';
 })
 export class NavComponent implements OnInit, OnDestroy {
   @Select(ChatContactsState.getChatContact) chatContact$: Observable<ChatContentContacts>;
-  @Select(ChatContactsState.getNavSearchContacts) searchResult$: Observable<ChatContact[]>;
+  @Select(ChatContactsState.getNavContacts) navContacts$: Observable<ChatContact[]>;
 
   stompClient;
   searchForm: FormGroup;
@@ -39,9 +39,9 @@ export class NavComponent implements OnInit, OnDestroy {
         this.chatContact = chatContact;
       }
     });
-    this.searchResult$.subscribe((searchResult) => {
-      if (searchResult) {
-        this.searchResult = searchResult;
+    this.navContacts$.subscribe((contacts) => {
+      if (contacts) {
+        this.searchResult = contacts;
       }
     });
     this.initWebSocketConnection();

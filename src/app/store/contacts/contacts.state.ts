@@ -29,7 +29,7 @@ export class ChatContactsState {
   }
 
   @Selector()
-  static getNavSearchContacts(state: ChatContactsStateModel) {
+  static getNavContacts(state: ChatContactsStateModel) {
     return state.navContacts;
   }
 
@@ -46,12 +46,13 @@ export class ChatContactsState {
   }
 
   @Action(AddContact)
-  addContact({getState, setState}: StateContext<ChatContactsStateModel>, {chatContact}: AddContact) {
+  addContact(state: StateContext<ChatContactsStateModel>, {chatContact}: AddContact) {
     return this.contactService.addChatCootact(chatContact).pipe(
       tap((contacts) => {
-        console.log('contacts: ', contacts);
-        setState({
-          ...getState
+        state.setState({
+          ...state.getState,
+          chatContact: updateChatContact(state.getState().chatContact, contacts),
+          navContacts: state.getState().navContacts
         });
       })
     );
@@ -63,6 +64,7 @@ export class ChatContactsState {
       tap((result) => {
         state.setState({
           ...state.getState,
+          chatContact: state.getState().chatContact,
           navContacts: result
         });
       })
@@ -70,6 +72,14 @@ export class ChatContactsState {
   }
 
 
+}
+
+function updateChatContact(chatContentContacts: ChatContentContacts, contacts: ChatContact[]): ChatContentContacts {
+  return {
+    id: chatContentContacts.id,
+    owner: chatContentContacts.owner,
+    contacts: contacts
+  };
 }
 
 
