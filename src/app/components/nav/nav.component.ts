@@ -8,8 +8,7 @@ import {ChatContactsState} from '../../store/contacts/contacts.state';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {SystemUserSearch} from '../../store/system-user/system-user.actions';
-import {SystemUserState} from '../../store/system-user/system-user.state';
+import {AddContact, SearchContact} from '../../store/contacts/contacts.actions';
 
 
 @Component({
@@ -19,7 +18,7 @@ import {SystemUserState} from '../../store/system-user/system-user.state';
 })
 export class NavComponent implements OnInit, OnDestroy {
   @Select(ChatContactsState.getChatContact) chatContact$: Observable<ChatContentContacts>;
-  @Select(SystemUserState.getNavSearchResult) searchResult$: Observable<SystemUser[]>;
+  @Select(ChatContactsState.getNavSearchContacts) searchResult$: Observable<ChatContact[]>;
 
   stompClient;
   searchForm: FormGroup;
@@ -64,11 +63,15 @@ export class NavComponent implements OnInit, OnDestroy {
 
   search() {
     const username = this.searchForm.value.username;
-    this.store.dispatch(new SystemUserSearch(username));
+    this.store.dispatch(new SearchContact(username));
   }
 
-  addContact() {
-    // add contact action
+  addContact(contact: ChatContact) {
+    this.store.dispatch(new AddContact(contact));
+  }
+
+  get showSearchResult() {
+    return this.searchResult && this.searchResult.length > 0;
   }
 
   initWebSocketConnection() {

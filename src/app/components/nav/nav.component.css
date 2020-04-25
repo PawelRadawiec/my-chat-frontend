@@ -16,3 +16,9 @@
   font-size: 0.8em;
   padding: 6px;
 }
+
+.table-scroll {
+  height: 200px;
+  overflow: auto;
+}
+

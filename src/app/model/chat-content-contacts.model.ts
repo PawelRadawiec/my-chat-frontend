@@ -7,7 +7,7 @@ export class ChatContentContacts {
 }
 
 export class ChatContact {
-  id: number;
+  id?: number;
   username: string;
-  active: boolean;
+  active?: boolean;
 }
