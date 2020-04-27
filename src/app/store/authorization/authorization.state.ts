@@ -70,12 +70,17 @@ export class AuthorizationState {
 
   @Action(SystemUserLogout)
   logout(authState: StateContext<AuthorizationStateModel>, {}: SystemUserLogout) {
-    this.authService.logout();
-    authState.setState({
-      ...authState.getState,
-      loggedUser: null,
-      isLogged: false
-    });
+    return this.authService.logout().pipe(
+      tap(() => {
+        authState.setState({
+          ...authState.getState,
+          loggedUser: null,
+          isLogged: false
+        });
+        sessionStorage.removeItem('authUser');
+        sessionStorage.removeItem('token');
+      })
+    );
   }
 
 

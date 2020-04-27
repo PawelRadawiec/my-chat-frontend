@@ -23,7 +23,7 @@ export class NavComponent implements OnInit, OnDestroy {
   stompClient;
   searchForm: FormGroup;
   searchResult: SystemUser[] = [];
-  systemUserList: SystemUser[] = [];
+  contacts: ChatContact[] = [];
   chatContact: ChatContentContacts;
 
   constructor(
@@ -37,6 +37,8 @@ export class NavComponent implements OnInit, OnDestroy {
     this.chatContact$.subscribe((chatContact) => {
       if (chatContact) {
         this.chatContact = chatContact;
+        this.contacts = chatContact.contacts;
+        this.sortContacts();
       }
     });
     this.navContacts$.subscribe((contacts) => {
@@ -89,11 +91,17 @@ export class NavComponent implements OnInit, OnDestroy {
     });
   }
 
-  handleResult(user) {
-    if (user) {
-      const systemUser: SystemUser = JSON.parse(user.body);
-      this.systemUserList.push(systemUser);
+  handleResult(result) {
+    if (result) {
+      const contact: ChatContact = JSON.parse(result.body);
+      this.contacts = this.contacts.filter(c => c.username !== contact.username);
+      this.sortContacts();
+      this.contacts.push(contact);
     }
+  }
+
+  sortContacts() {
+    this.contacts = this.contacts.sort((c1, c2) => c1.active === c2.active ? 1 : -1);
   }
 
 
