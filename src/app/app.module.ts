@@ -8,7 +8,6 @@ import {NavComponent} from './components/nav/nav.component';
 import {MainComponent} from './components/main/main.component';
 import {FotterComponent} from './components/fotter/fotter.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ChatActivatorComponent} from './components/chat-activator/chat-activator.component';
 import {MyChatComponent} from './components/my-chat/my-chat.component';
 import {NgxsModule} from '@ngxs/store';
 import {ChatContentState} from './store/chat-content/chat-content.state';
@@ -21,6 +20,7 @@ import {AuthorizationState} from './store/authorization/authorization.state';
 import {HttpInterceptorAuthService} from './interceptors/http-interceptor-auth.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import {ChatContactsState} from './store/contacts/contacts.state';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,6 @@ import { RegistrationComponent } from './components/registration/registration.co
     NavComponent,
     MainComponent,
     FotterComponent,
-    ChatActivatorComponent,
     LoginComponent,
     LogoutComponent,
     RegistrationComponent
@@ -43,6 +42,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     NgxsModule.forRoot([
       ChatContentState,
       SystemUserState,
+      ChatContactsState,
       AuthorizationState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),

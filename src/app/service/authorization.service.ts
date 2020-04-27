@@ -40,8 +40,7 @@ export class AuthorizationService {
   }
 
   logout() {
-    sessionStorage.removeItem('authUser');
-    sessionStorage.removeItem('token');
+    return this.http.get<boolean>('http://localhost:8080/logout');
   }
 
 

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthorizationService} from '../../service/authorization.service';
+import {Store} from '@ngxs/store';
+import {SystemUserLogout} from '../../store/authorization/authotization.actions';
 
 @Component({
   selector: 'app-logout',
@@ -8,11 +9,13 @@ import {AuthorizationService} from '../../service/authorization.service';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private authService: AuthorizationService) {
+  constructor(
+    private store: Store
+  ) {
   }
 
   ngOnInit() {
-    this.authService.logout();
+    this.store.dispatch(new SystemUserLogout());
   }
 
 }

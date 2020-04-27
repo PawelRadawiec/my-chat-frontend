@@ -19,6 +19,10 @@ export class SystemUserService {
     return this.http.post<SystemUser>(`${this.baseUrl}/chat-user/registration`, request);
   }
 
+  search(username: string) {
+    return this.http.get<SystemUser[]>(`${this.baseUrl}/chat-user/search/${username}`);
+  }
+
   isUserLoggedIn() {
     return sessionStorage.getItem('authUser') !== null;
   }

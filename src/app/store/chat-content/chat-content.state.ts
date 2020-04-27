@@ -15,7 +15,6 @@ export class ChatContentStateModel {
     chatContent: null
   }
 })
-
 export class ChatContentState {
 
   constructor(private contentService: ChatContentService) {

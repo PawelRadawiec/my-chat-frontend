@@ -1,6 +1,6 @@
 import {Action, State} from '../../../../node_modules/@ngxs/store';
 import {SystemUserService} from '../../service/system-user.service';
-import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed} from './system-user.actions';
+import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed, SystemUserSearch} from './system-user.actions';
 import {Selector, StateContext} from '@ngxs/store';
 import {tap, catchError} from 'rxjs/internal/operators';
 import {SystemUser} from '../../model/system-user.model';
@@ -8,6 +8,7 @@ import {SystemUser} from '../../model/system-user.model';
 
 export class SystemUserStateModel {
   users?: SystemUser[] = [];
+  navSearchUsers?: SystemUser[] = [];
   registered?: SystemUser;
   errorMap?: { [key: string]: string; };
 }
@@ -16,6 +17,7 @@ export class SystemUserStateModel {
   name: 'systemUser',
   defaults: {
     users: [],
+    navSearchUsers: [],
     registered: null
   }
 })
@@ -27,6 +29,11 @@ export class SystemUserState {
   @Selector()
   static getSystemUserList(state: SystemUserStateModel) {
     return state.users;
+  }
+
+  @Selector()
+  static getNavSearchResult(state: SystemUserStateModel) {
+    return state.navSearchUsers;
   }
 
   @Selector()
@@ -56,8 +63,20 @@ export class SystemUserState {
         });
       }),
       catchError(error => {
-        console.log('Error occured: ', error);
+        console.log('Error occur: ', error);
         return userState.dispatch(new SystemUserRegistrationFailed(error.error));
+      })
+    );
+  }
+
+  @Action(SystemUserSearch)
+  search(userState: StateContext<SystemUserStateModel>, {username}: SystemUserSearch) {
+    return this.userService.search(username).pipe(
+      tap((result) => {
+        userState.setState({
+          ...userState.getState,
+          navSearchUsers: result
+        });
       })
     );
   }
