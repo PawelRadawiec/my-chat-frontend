@@ -1,16 +1,15 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Select, Store} from '@ngxs/store';
+import {Observable, Subscription} from 'rxjs';
+import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
+import {AuthorizationState} from '../../store/authorization/authorization.state';
 import {ChatMessage} from '../../model/chat-message.model';
+import {ChatContent} from 'src/app/model/chat-content.model';
+import {SystemUser} from '../../model/system-user.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import {ActivatedRoute} from '@angular/router';
-import {ChatContent} from 'src/app/model/chat-content.model';
-import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
-import {Observable} from 'rxjs';
-import {Select, Store} from '@ngxs/store';
-import {ChatContentSaveReceivedMessage} from '../../store/chat-content/chat-content.actions';
-import {SystemUser} from '../../model/system-user.model';
-import {AuthorizationState} from '../../store/authorization/authorization.state';
 
 @Component({
   selector: 'app-my-chat',
@@ -21,11 +20,12 @@ export class MyChatComponent implements OnInit {
   @Select(ChatContentState.getChatContent) chatContent$: Observable<ChatContent>;
   @Select(AuthorizationState.getLoggedUser) loggedUser$: Observable<SystemUser>;
 
+  subscriptions: Subscription[] = [];
   chatContent: ChatContent = new ChatContent();
   messageForm: FormGroup;
-  userForm: FormGroup;
   loggedUser: SystemUser;
   username: string;
+  correspondentName: string;
   stompClient: any;
 
   constructor(
@@ -37,19 +37,22 @@ export class MyChatComponent implements OnInit {
 
   ngOnInit() {
     this.initForms();
-    this.loggedUser$.subscribe((user) => {
-      if (user) {
-        this.loggedUser = user;
-        this.username = user.username;
-      }
-    });
-    this.initWebSocketConnection();
-    this.chatContent$.subscribe(content => {
-        if (content) {
-          this.chatContent = content;
+    this.correspondentName = this.route.snapshot.paramMap.get('username');
+    this.subscriptions.push(
+      this.loggedUser$.subscribe((user) => {
+        if (user) {
+          this.loggedUser = user;
+          this.username = user.username;
         }
-      }
+      }),
+      this.chatContent$.subscribe(content => {
+          if (content) {
+            this.chatContent = content;
+          }
+        }
+      )
     );
+    this.initWebSocketConnection();
   }
 
   initWebSocketConnection() {
@@ -57,11 +60,6 @@ export class MyChatComponent implements OnInit {
     this.stompClient = Stomp.over(ws);
     const that = this;
     this.stompClient.connect({}, () => {
-      const systemUser: SystemUser = {
-        id: 1,
-        username: that.username
-      };
-      // that.stompClient.send('/app/send/user', {}, JSON.stringify(systemUser));
       that.openGlobalSocket();
       that.openSocket();
     });
@@ -92,7 +90,6 @@ export class MyChatComponent implements OnInit {
       };
       if (messageResult.body.from !== this.username) {
         console.log('chatMessage: ', chatMessage);
-        this.store.dispatch(new ChatContentSaveReceivedMessage(chatMessage));
       }
     }
   }
@@ -108,7 +105,7 @@ export class MyChatComponent implements OnInit {
   activeSocket() {
     const chatMessage: ChatMessage = {
       from: this.username,
-      to: this.userForm.value.to,
+      to: this.correspondentName,
       message: null,
     };
     this.stompClient.send('/app/add/user', {}, JSON.stringify(chatMessage));
@@ -118,7 +115,7 @@ export class MyChatComponent implements OnInit {
     if (this.messageForm.valid) {
       const message: ChatMessage = {
         from: this.username,
-        to: this.userForm.value.to,
+        to: this.correspondentName,
         message: this.messageForm.value.message,
         content: this.chatContent
       };
@@ -130,11 +127,6 @@ export class MyChatComponent implements OnInit {
     this.messageForm = this.formBuilder.group({
       message: ['', Validators.required]
     });
-    this.userForm = this.formBuilder.group(({
-      username: ['', Validators.required],
-      from: ['', Validators.required],
-      to: ['']
-    }));
   }
 
 
