@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Select, Store} from '@ngxs/store';
+import {Select} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
 import {AuthorizationState} from '../../store/authorization/authorization.state';
@@ -30,8 +30,7 @@ export class MyChatComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private store: Store
+    private route: ActivatedRoute
   ) {
   }
 
@@ -66,7 +65,8 @@ export class MyChatComponent implements OnInit {
   }
 
   openGlobalSocket() {
-    this.stompClient.subscribe('/topic/message', (message) => {
+    const topic = `/topic/message.${this.username}.${this.correspondentName}`;
+    this.stompClient.subscribe(topic, (message) => {
       this.handleResult(message);
     });
   }
@@ -81,16 +81,7 @@ export class MyChatComponent implements OnInit {
   handleResult(message: { body: string; }) {
     if (message) {
       const messageResult = JSON.parse(message.body);
-      this.chatContent.messages.push(messageResult.body);
-      const chatMessage: ChatMessage = {
-        message: messageResult.body.message,
-        from: messageResult.body.from,
-        to: messageResult.body.to,
-        content: this.chatContent
-      };
-      if (messageResult.body.from !== this.username) {
-        console.log('chatMessage: ', chatMessage);
-      }
+      this.chatContent.messages.push(messageResult);
     }
   }
 
@@ -119,7 +110,7 @@ export class MyChatComponent implements OnInit {
         message: this.messageForm.value.message,
         content: this.chatContent
       };
-      this.stompClient.send('/app/send/message', {}, JSON.stringify(message));
+      this.stompClient.send('/app/send.message', {}, JSON.stringify(message));
     }
   }
 
