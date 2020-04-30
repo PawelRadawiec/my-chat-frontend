@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpInterceptor, HttpRequest, HttpHandler} from '@angular/common/http';
-import {AuthorizationService} from '../service/authorization.service';
+import {AuthorizationService} from '../authentication-module/service/authorization.service';
 import {Store} from '@ngxs/store';
 import {SetSystemUser} from '../store/authorization/authotization.actions';
 import {SystemUser} from '../model/system-user.model';

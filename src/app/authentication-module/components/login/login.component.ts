@@ -3,7 +3,7 @@ import {Store} from '@ngxs/store';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthorizationService} from '../../service/authorization.service';
-import {GetAuthorization} from '../../store/authorization/authotization.actions';
+import {GetAuthorization} from '../../../store/authorization/authotization.actions';
 
 @Component({
   selector: 'app-login',

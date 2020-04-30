@@ -15,12 +15,10 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SystemUserState} from './store/system-user/system-user.state';
-import {LoginComponent} from './components/login/login.component';
 import {AuthorizationState} from './store/authorization/authorization.state';
 import {HttpInterceptorAuthService} from './interceptors/http-interceptor-auth.service';
-import { LogoutComponent } from './components/logout/logout.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import {ChatContactsState} from './store/contacts/contacts.state';
+import {AuthenticationModule} from './authentication-module/authentication.module';
 
 @NgModule({
   declarations: [
@@ -30,15 +28,13 @@ import {ChatContactsState} from './store/contacts/contacts.state';
     NavComponent,
     MainComponent,
     FotterComponent,
-    LoginComponent,
-    LogoutComponent,
-    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    AuthenticationModule,
     NgxsModule.forRoot([
       ChatContentState,
       SystemUserState,

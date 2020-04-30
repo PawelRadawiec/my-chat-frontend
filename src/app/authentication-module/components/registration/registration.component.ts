@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SystemUserRegistration} from 'src/app/store/system-user/system-user.actions';
-import {ErrorService} from '../../service/error.service';
-import {SystemUser} from '../../model/system-user.model';
+import {ErrorService} from '../../../service/error.service';
+import {SystemUser} from '../../../model/system-user.model';
 
 @Component({
   selector: 'app-registration',

@@ -1,5 +1,5 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
-import {AuthorizationService, TokenResponse} from '../../service/authorization.service';
+import {AuthorizationService, TokenResponse} from '../../authentication-module/service/authorization.service';
 import {GetAuthorization, SetSystemUser, SystemUserLogout} from './authotization.actions';
 import {tap} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';

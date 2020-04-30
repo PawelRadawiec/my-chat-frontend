@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {SystemUserLogout} from '../../store/authorization/authotization.actions';
+import {SystemUserLogout} from '../../../store/authorization/authotization.actions';
 
 @Component({
   selector: 'app-logout',
