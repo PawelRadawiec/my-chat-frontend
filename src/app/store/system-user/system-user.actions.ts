@@ -1,4 +1,4 @@
-import {SystemUser} from '../../model/system-user.model';
+import {SystemUser} from '../../authentication-module/model/system-user.model';
 
 
 export class SystemUserGetList {

@@ -1,13 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {MainComponent} from './components/main/main.component';
-import {MyChatComponent} from './components/my-chat/my-chat.component';
 import {ChatContentResolver} from './resolvers/chat-contnt-resolver';
 import {ChatSystemUserResolver} from './resolvers/chat-system-user.resolver';
-import {LoginComponent} from './authentication-module/components/login/login.component';
 import {AuthGuard} from './guards/auth.guard';
-import {LogoutComponent} from './authentication-module/components/logout/logout.component';
-import {RegistrationComponent} from './authentication-module/components/registration/registration.component';
 import {ChatContactsResolver} from './resolvers/chat-contacts.resolver';
 
 
@@ -20,29 +16,7 @@ const routes: Routes = [
     },
     canActivate: [AuthGuard],
     component: MainComponent
-  },
-  {
-    path: 'chat/:username',
-    component: MyChatComponent,
-    canActivate: [AuthGuard],
-    resolve: {
-      activationResolver: ChatContentResolver,
-      chatContactsResolver: ChatContactsResolver,
-      chatUserListResolver: ChatSystemUserResolver
-    }
-  },
-  // {
-  //   path: 'registration',
-  //   component: RegistrationComponent
-  // },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
-  // {
-  //   path: 'logout',
-  //   component: LogoutComponent
-  // }
+  }
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import {Injectable} from '@angular/core';
-import {ChatContent} from '../model/chat-content.model';
+import {ChatContent} from '../chat/model/chat-content.model';
 import {Store} from '@ngxs/store';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';

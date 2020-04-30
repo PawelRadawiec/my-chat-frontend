@@ -3,7 +3,7 @@ import {AuthorizationService, TokenResponse} from '../../authentication-module/s
 import {GetAuthorization, SetSystemUser, SystemUserLogout} from './authotization.actions';
 import {tap} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';
-import {SystemUser} from '../../model/system-user.model';
+import {SystemUser} from '../../authentication-module/model/system-user.model';
 
 
 export class AuthorizationStateModel {

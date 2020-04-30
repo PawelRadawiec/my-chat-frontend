@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import {SystemUser} from '../../model/system-user.model';
+import {SystemUser} from '../../../authentication-module/model/system-user.model';
 import {ChatContact, ChatContentContacts} from '../../model/chat-content-contacts.model';
 import {Select, Store} from '@ngxs/store';
-import {ChatContactsState} from '../../store/contacts/contacts.state';
+import {ChatContactsState} from '../../../store/contacts/contacts.state';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AddContact, SearchContact} from '../../store/contacts/contacts.actions';
+import {AddContact, SearchContact} from '../../../store/contacts/contacts.actions';
 
 
 @Component({

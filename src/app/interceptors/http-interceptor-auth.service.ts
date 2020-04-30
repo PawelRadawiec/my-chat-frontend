@@ -3,7 +3,7 @@ import {HttpInterceptor, HttpRequest, HttpHandler} from '@angular/common/http';
 import {AuthorizationService} from '../authentication-module/service/authorization.service';
 import {Store} from '@ngxs/store';
 import {SetSystemUser} from '../store/authorization/authotization.actions';
-import {SystemUser} from '../model/system-user.model';
+import {SystemUser} from '../authentication-module/model/system-user.model';
 
 @Injectable()
 export class HttpInterceptorAuthService implements HttpInterceptor {

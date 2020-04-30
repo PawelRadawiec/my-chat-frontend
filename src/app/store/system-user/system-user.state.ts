@@ -3,7 +3,7 @@ import {SystemUserService} from '../../service/system-user.service';
 import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed, SystemUserSearch} from './system-user.actions';
 import {Selector, StateContext} from '@ngxs/store';
 import {tap, catchError} from 'rxjs/internal/operators';
-import {SystemUser} from '../../model/system-user.model';
+import {SystemUser} from '../../authentication-module/model/system-user.model';
 
 
 export class SystemUserStateModel {

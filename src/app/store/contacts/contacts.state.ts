@@ -1,4 +1,4 @@
-import {ChatContact, ChatContentContacts} from '../../model/chat-content-contacts.model';
+import {ChatContact, ChatContentContacts} from '../../chat/model/chat-content-contacts.model';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {ContactsService} from '../../service/contacts.service';
 import {tap} from 'rxjs/operators';

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ChatContentContacts, ChatContact} from '../model/chat-content-contacts.model';
+import {ChatContentContacts, ChatContact} from '../chat/model/chat-content-contacts.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { ChatMessage } from './chat-message.model';
-import {SystemUser} from './system-user.model';
+import {SystemUser} from '../../authentication-module/model/system-user.model';
 
 
 export class ChatContent {
