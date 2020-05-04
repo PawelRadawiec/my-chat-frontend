@@ -1,41 +1,5 @@
-<form class="search-form" [formGroup]="searchForm" (ngSubmit)="search()">
-  <div class="form-group">
-    <input
-      type="text"
-      class="form-control input-sm col-xs-3"
-      placeholder="username"
-      id="username"
-      formControlName="username"
-    >
-    <button type="submit" class="btn btn-outline-dark search-button">Search</button>
-  </div>
-</form>
+<app-user-list></app-user-list>
 
-<div class="table-scroll" *ngIf="showSearchResult">
-  <table class="table table-sm scroll">
-    <thead>
-    <tr>
-      <th scope="col">Search result</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let contact of searchResult">
-      <td>
-        <div class="username">
-          {{contact.username}}
-        </div>
-      </td>
-      <td>
-        <button
-          type="submit"
-          class="btn btn-primary btn-xs"
-          (click)="addContact(contact)"
-        >+</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 <div class="table-scroll">
   <table class="table table-sm">
     <thead>

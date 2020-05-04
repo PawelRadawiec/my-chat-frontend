@@ -4,6 +4,7 @@ import {MyChatComponent} from './components/my-chat/my-chat.component';
 import {NavComponent} from './components/nav/nav.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {routing} from './chat.routing';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {routing} from './chat.routing';
   ],
   declarations: [
     MyChatComponent,
-    NavComponent
+    NavComponent,
+    UserListComponent
   ],
   exports: [
     MyChatComponent,

@@ -18,11 +18,11 @@ import {AddContact, SearchContact} from '../../../store/contacts/contacts.action
 })
 export class NavComponent implements OnInit, OnDestroy {
   @Select(ChatContactsState.getChatContact) chatContact$: Observable<ChatContentContacts>;
-  @Select(ChatContactsState.getNavContacts) navContacts$: Observable<ChatContact[]>;
+  //@Select(ChatContactsState.getNavContacts) navContacts$: Observable<ChatContact[]>;
 
   stompClient;
-  searchForm: FormGroup;
-  searchResult: SystemUser[] = [];
+  // searchForm: FormGroup;
+  // searchResult: SystemUser[] = [];
   contacts: ChatContact[] = [];
   chatContact: ChatContentContacts;
 
@@ -41,13 +41,13 @@ export class NavComponent implements OnInit, OnDestroy {
         this.sortContacts();
       }
     });
-    this.navContacts$.subscribe((contacts) => {
-      if (contacts) {
-        this.searchResult = contacts;
-      }
-    });
+    // this.navContacts$.subscribe((contacts) => {
+    //   if (contacts) {
+    //     this.searchResult = contacts;
+    //   }
+    // });
     this.initWebSocketConnection();
-    this.initSearchForm();
+    //this.initSearchForm();
   }
 
   ngOnDestroy() {
@@ -57,24 +57,24 @@ export class NavComponent implements OnInit, OnDestroy {
     this.router.navigate([`chat/${contact.username}`]);
   }
 
-  initSearchForm() {
-    this.searchForm = this.formBuilder.group({
-      username: []
-    });
-  }
+  // initSearchForm() {
+  //   this.searchForm = this.formBuilder.group({
+  //     username: []
+  //   });
+  // }
 
-  search() {
-    const username = this.searchForm.value.username;
-    this.store.dispatch(new SearchContact(username));
-  }
+  // search() {
+  //   const username = this.searchForm.value.username;
+  //   this.store.dispatch(new SearchContact(username));
+  // }
 
-  addContact(contact: ChatContact) {
-    this.store.dispatch(new AddContact(contact));
-  }
+  // addContact(contact: ChatContact) {
+  //   this.store.dispatch(new AddContact(contact));
+  // }
 
-  get showSearchResult() {
-    return this.searchResult && this.searchResult.length > 0;
-  }
+  // get showSearchResult() {
+  //   return this.searchResult && this.searchResult.length > 0;
+  // }
 
   initWebSocketConnection() {
     const ws = new SockJS('http://localhost:8080/ws');
