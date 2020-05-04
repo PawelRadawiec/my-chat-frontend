@@ -4,6 +4,7 @@ import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed,
 import {Selector, StateContext} from '@ngxs/store';
 import {tap, catchError} from 'rxjs/internal/operators';
 import {SystemUser} from '../../authentication-module/model/system-user.model';
+import {Injectable} from '@angular/core';
 
 
 export class SystemUserStateModel {
@@ -21,7 +22,7 @@ export class SystemUserStateModel {
     registered: null
   }
 })
-
+@Injectable()
 export class SystemUserState {
   constructor(private userService: SystemUserService) {
   }

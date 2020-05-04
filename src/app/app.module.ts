@@ -24,9 +24,7 @@ import {ChatModule} from './chat/chat.module';
 @NgModule({
   declarations: [
     AppComponent,
-    //MyChatComponent,
     HeaderComponent,
-    //NavComponent,
     MainComponent,
     FotterComponent,
   ],

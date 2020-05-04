@@ -4,6 +4,7 @@ import {GetAuthorization, SetSystemUser, SystemUserLogout} from './authotization
 import {tap} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';
 import {SystemUser} from '../../authentication-module/model/system-user.model';
+import {Injectable} from '@angular/core';
 
 
 export class AuthorizationStateModel {
@@ -20,7 +21,7 @@ export class AuthorizationStateModel {
     isLogged: false
   }
 })
-
+@Injectable()
 export class AuthorizationState {
 
   constructor(

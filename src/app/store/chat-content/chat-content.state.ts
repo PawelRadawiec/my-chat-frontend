@@ -3,6 +3,7 @@ import {ChatContent} from '../../chat/model/chat-content.model';
 import {ChatContentCreate, ChatContentGetByUsername, ChatContentSaveReceivedMessage} from './chat-content.actions';
 import {ChatContentService} from '../../service/chat-content.service';
 import {tap} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 
 
 export class ChatContentStateModel {
@@ -15,6 +16,7 @@ export class ChatContentStateModel {
     chatContent: null
   }
 })
+@Injectable()
 export class ChatContentState {
 
   constructor(private contentService: ChatContentService) {

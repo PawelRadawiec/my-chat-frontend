@@ -4,6 +4,7 @@ import {ContactsService} from '../../service/contacts.service';
 import {tap} from 'rxjs/operators';
 import {GetChatContact, AddContact, SearchContact} from './contacts.actions';
 import {ChatContentState} from '../chat-content/chat-content.state';
+import {Injectable} from '@angular/core';
 
 
 export class ChatContactsStateModel {
@@ -18,6 +19,7 @@ export class ChatContactsStateModel {
     navContacts: null
   }
 })
+@Injectable()
 export class ChatContactsState {
 
   constructor(private contactService: ContactsService) {
