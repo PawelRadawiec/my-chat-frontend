@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
-import {ChatContactsState} from '../../../store/contacts/contacts.state';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {ChatContact} from '../../model/chat-content-contacts.model';
+import {ChatContactsState} from '../../../store/contacts/contacts.state';
 import {AddContact, SearchContact} from '../../../store/contacts/contacts.actions';
 import {SystemUser} from '../../../authentication-module/model/system-user.model';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {ChatContact} from '../../model/chat-content-contacts.model';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +21,8 @@ export class UserListComponent implements OnInit {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.navContacts$.subscribe((contacts) => {

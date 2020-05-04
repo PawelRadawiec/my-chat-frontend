@@ -1,0 +1,22 @@
+<div class="table-scroll">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th scope="col">Contacts</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contact of contacts">
+      <td (click)="selectContact(contact)">
+        <div class="username">
+          {{contact.username}}
+        </div>
+        <div class="status">
+          <span class="badge badge-pill badge-info" *ngIf="contact.active">active</span>
+          <span class="badge badge-pill badge-danger" *ngIf="!contact.active">logged out</span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
