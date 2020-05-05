@@ -17,9 +17,9 @@ import * as Stomp from 'stompjs';
   styleUrls: ['./my-chat.component.css']
 })
 export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChild('scroll') private scrollContainer: ElementRef;
   @Select(ChatContentState.getChatContent) chatContent$: Observable<ChatContent>;
   @Select(AuthorizationState.getLoggedUser) loggedUser$: Observable<SystemUser>;
-  @ViewChild('scroll') private scrollContainer: ElementRef;
 
   private subscriptions: Subscription[] = [];
   chatContent: ChatContent = new ChatContent();
@@ -75,16 +75,19 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   openGlobalSocket() {
     const topic = `/topic/message.${this.username}.${this.correspondentName}`;
-    this.stompClient.subscribe(topic, (message) => {
-      this.handleResult(message);
-    });
+    this.subscriptions.push(
+      this.stompClient.subscribe(topic, (message) => {
+        this.handleResult(message);
+      })
+    );
   }
 
   openSocket() {
-    this.stompClient.subscribe('/topic/' + this.username, (message) => {
-      this.handleResult(message);
-      this.activeSocket();
-    });
+    this.subscriptions.push(
+      this.stompClient.subscribe('/topic/' + this.username, (message) => {
+        this.handleResult(message);
+      })
+    );
   }
 
   handleResult(message: { body: string; }) {
@@ -102,15 +105,6 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   showToLabel(message: ChatMessage) {
     return message.to === this.username;
-  }
-
-  activeSocket() {
-    const chatMessage: ChatMessage = {
-      from: this.username,
-      to: this.correspondentName,
-      message: null,
-    };
-    this.stompClient.send('/app/add/user', {}, JSON.stringify(chatMessage));
   }
 
   sendMessage() {
