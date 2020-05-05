@@ -3,7 +3,7 @@
     <div class="card-header">
       Chat
     </div>
-    <div class="card scroll">
+    <div class="card scroll" #scroll (scroll)="onScroll()">
       <ul class="list-group" *ngFor="let message of chatContent.messages">
         <li class="list-group-item right-item" *ngIf="messageOwner(message)">
           <p class="message-to" *ngIf="!messageOwner(message)">From: {{message.from}},</p>

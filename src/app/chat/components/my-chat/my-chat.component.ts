@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Select} from '@ngxs/store';
@@ -16,9 +16,10 @@ import * as Stomp from 'stompjs';
   templateUrl: './my-chat.component.html',
   styleUrls: ['./my-chat.component.css']
 })
-export class MyChatComponent implements OnInit, OnDestroy {
+export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Select(ChatContentState.getChatContent) chatContent$: Observable<ChatContent>;
   @Select(AuthorizationState.getLoggedUser) loggedUser$: Observable<SystemUser>;
+  @ViewChild('scroll') private scrollContainer: ElementRef;
 
   private subscriptions: Subscription[] = [];
   chatContent: ChatContent = new ChatContent();
@@ -27,6 +28,7 @@ export class MyChatComponent implements OnInit, OnDestroy {
   username: string;
   correspondentName: string;
   stompClient: any;
+  scrollBottom = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,6 +59,10 @@ export class MyChatComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   initWebSocketConnection() {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);
@@ -85,6 +91,8 @@ export class MyChatComponent implements OnInit, OnDestroy {
     if (message) {
       const messageResult = JSON.parse(message.body);
       this.chatContent.messages.push(messageResult);
+      this.scrollBottom = false;
+      this.setScrollTop();
     }
   }
 
@@ -114,6 +122,27 @@ export class MyChatComponent implements OnInit, OnDestroy {
         content: this.chatContent
       };
       this.stompClient.send('/app/send.message', {}, JSON.stringify(message));
+    }
+  }
+
+  onScroll() {
+    const element = this.scrollContainer.nativeElement;
+    const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+    this.scrollBottom = !(this.scrollBottom && atBottom);
+  }
+
+  scrollToBottom() {
+    if (this.scrollBottom) {
+      return;
+    }
+    this.setScrollTop();
+  }
+
+  setScrollTop() {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch (error) {
+      console.error('scrollToBottomError', error);
     }
   }
 
