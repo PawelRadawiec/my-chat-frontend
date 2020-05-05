@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {Select} from '@ngxs/store';
 import {SystemUserState} from '../store/system-user/system-user.state';
 
@@ -9,10 +9,11 @@ import {SystemUserState} from '../store/system-user/system-user.state';
 export class ErrorService {
 
   @Select(SystemUserState.getErrorMap) errorMap$: Observable<{ [key: string]: string; }>;
+  subscription: Subscription;
   errorMap: { [key: string]: string };
 
   constructor() {
-    this.errorMap$.subscribe(errorMap => {
+    this.subscription = this.errorMap$.subscribe(errorMap => {
       if (errorMap) {
         this.errorMap = errorMap;
       }

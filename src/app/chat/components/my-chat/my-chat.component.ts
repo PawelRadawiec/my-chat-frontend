@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Select} from '@ngxs/store';
@@ -16,11 +16,11 @@ import * as Stomp from 'stompjs';
   templateUrl: './my-chat.component.html',
   styleUrls: ['./my-chat.component.css']
 })
-export class MyChatComponent implements OnInit {
+export class MyChatComponent implements OnInit, OnDestroy {
   @Select(ChatContentState.getChatContent) chatContent$: Observable<ChatContent>;
   @Select(AuthorizationState.getLoggedUser) loggedUser$: Observable<SystemUser>;
 
-  subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = [];
   chatContent: ChatContent = new ChatContent();
   messageForm: FormGroup;
   loggedUser: SystemUser;
@@ -45,13 +45,16 @@ export class MyChatComponent implements OnInit {
         }
       }),
       this.chatContent$.subscribe(content => {
-          if (content) {
-            this.chatContent = content;
-          }
+        if (content) {
+          this.chatContent = content;
         }
-      )
+      })
     );
     this.initWebSocketConnection();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   initWebSocketConnection() {

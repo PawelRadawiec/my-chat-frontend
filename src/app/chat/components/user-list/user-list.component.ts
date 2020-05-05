@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {ChatContactsState} from '../../../store/contacts/contacts.state';
 import {AddContact, SearchContact} from '../../../store/contacts/contacts.actions';
 import {SystemUser} from '../../../authentication-module/model/system-user.model';
@@ -12,9 +12,10 @@ import {ChatContact} from '../../model/chat-content-contacts.model';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   @Select(ChatContactsState.getNavContacts) navContacts$: Observable<ChatContact[]>;
 
+  private subscription: Subscription;
   searchForm: FormGroup;
   searchResult: SystemUser[] = [];
 
@@ -25,12 +26,16 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navContacts$.subscribe((contacts) => {
+    this.subscription = this.navContacts$.subscribe((contacts) => {
       if (contacts) {
         this.searchResult = contacts;
       }
     });
     this.initSearchForm();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   initSearchForm() {

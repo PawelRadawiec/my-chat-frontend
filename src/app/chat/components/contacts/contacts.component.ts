@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Select} from '@ngxs/store';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import {ChatContactsState} from '../../../store/contacts/contacts.state';
@@ -16,6 +16,7 @@ import {ChatContact, ChatContentContacts} from '../../model/chat-content-contact
 export class ContactsComponent implements OnInit, OnDestroy {
   @Select(ChatContactsState.getChatContact) chatContact$: Observable<ChatContentContacts>;
 
+  private subscription: Subscription;
   stompClient;
   contacts: ChatContact[] = [];
   chatContact: ChatContentContacts;
@@ -26,7 +27,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.chatContact$.subscribe((chatContact) => {
+    this.subscription = this.chatContact$.subscribe((chatContact) => {
       if (chatContact) {
         this.chatContact = chatContact;
         this.contacts = chatContact.contacts;
@@ -37,6 +38,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   selectContact(contact: ChatContact) {

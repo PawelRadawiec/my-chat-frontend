@@ -29,7 +29,6 @@ export class ChatContentState {
 
   @Action(ChatContentCreate)
   create({getState, patchState}: StateContext<ChatContentStateModel>, {request}: ChatContentCreate) {
-    const state = getState;
     patchState({
       chatContent: request
     });
@@ -39,9 +38,8 @@ export class ChatContentState {
   getByUserName({getState, setState}: StateContext<ChatContentStateModel>, {username}: ChatContentGetByUsername) {
     return this.contentService.getByUsername(username)
       .pipe(tap((result) => {
-        const state = getState;
         setState({
-          ...state,
+          ...getState,
           chatContent: result
         });
       }));
