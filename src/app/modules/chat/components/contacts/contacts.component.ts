@@ -4,8 +4,8 @@ import {Select} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
-import {ChatContactsState} from '../../../store/contacts/contacts.state';
 import {ChatContact, ChatContentContacts} from '../../model/chat-content-contacts.model';
+import {ChatContactsState} from '../../../../store/contacts/contacts.state';
 
 
 @Component({

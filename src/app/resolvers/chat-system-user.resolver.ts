@@ -1,10 +1,10 @@
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Injectable} from '@angular/core';
-import {ChatContent} from '../chat/model/chat-content.model';
-import {Observable} from 'rxjs';
 import {Store} from '@ngxs/store';
-import {SystemUserGetList} from '../store/system-user/system-user.actions';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
+import {ChatContent} from '../modules/chat/model/chat-content.model';
+import {SystemUserGetList} from '../store/system-user/system-user.actions';
 import {SystemUserState} from '../store/system-user/system-user.state';
 
 @Injectable()

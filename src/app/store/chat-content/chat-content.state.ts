@@ -1,9 +1,9 @@
-import {State, Selector, Action, StateContext} from '@ngxs/store';
-import {ChatContent} from '../../chat/model/chat-content.model';
-import {ChatContentCreate, ChatContentGetByUsername, ChatContentSaveReceivedMessage} from './chat-content.actions';
-import {ChatContentService} from '../../service/chat-content.service';
-import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
+import {State, Selector, Action, StateContext} from '@ngxs/store';
+import {tap} from 'rxjs/operators';
+import {ChatContent} from '../../modules/chat/model/chat-content.model';
+import {ChatContentService} from '../../service/chat-content.service';
+import {ChatContentCreate, ChatContentGetByUsername, ChatContentSaveReceivedMessage} from './chat-content.actions';
 
 
 export class ChatContentStateModel {

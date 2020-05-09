@@ -2,13 +2,13 @@ import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild} f
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Select} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
-import {ChatContentState} from 'src/app/store/chat-content/chat-content.state';
-import {AuthorizationState} from '../../../store/authorization/authorization.state';
-import {ChatMessage} from '../../model/chat-message.model';
-import {ChatContent} from 'src/app/chat/model/chat-content.model';
-import {SystemUser} from '../../../authentication-module/model/system-user.model';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
+import {ChatContentState} from '../../../../store/chat-content/chat-content.state';
+import {AuthorizationState} from '../../../../store/authorization/authorization.state';
+import {ChatContent} from '../../model/chat-content.model';
+import {SystemUser} from '../../../authentication-module/model/system-user.model';
+import {ChatMessage} from '../../model/chat-message.model';
 
 @Component({
   selector: 'app-my-chat',

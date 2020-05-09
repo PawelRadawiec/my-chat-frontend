@@ -1,4 +1,5 @@
-import {SystemUser} from '../../authentication-module/model/system-user.model';
+import {SystemUser} from '../../modules/authentication-module/model/system-user.model';
+
 
 export class GetAuthorization {
   static readonly type = '[Authorization] Get';

@@ -1,10 +1,10 @@
+import {Injectable} from '@angular/core';
+import {Selector, StateContext} from '@ngxs/store';
 import {Action, State} from '../../../../node_modules/@ngxs/store';
+import {tap, catchError} from 'rxjs/internal/operators';
+import {SystemUser} from '../../modules/authentication-module/model/system-user.model';
 import {SystemUserService} from '../../service/system-user.service';
 import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed, SystemUserSearch} from './system-user.actions';
-import {Selector, StateContext} from '@ngxs/store';
-import {tap, catchError} from 'rxjs/internal/operators';
-import {SystemUser} from '../../authentication-module/model/system-user.model';
-import {Injectable} from '@angular/core';
 
 
 export class SystemUserStateModel {

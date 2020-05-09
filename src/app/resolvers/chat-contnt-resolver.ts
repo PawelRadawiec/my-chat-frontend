@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { ChatContentGetByUsername } from '../store/chat-content/chat-content.actions';
-import { ChatContent } from '../chat/model/chat-content.model';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ChatContentState } from '../store/chat-content/chat-content.state';
+import {ChatContent} from '../modules/chat/model/chat-content.model';
+import {ChatContentGetByUsername} from '../store/chat-content/chat-content.actions';
+import {ChatContentState} from '../store/chat-content/chat-content.state';
+
 
 
 @Injectable()

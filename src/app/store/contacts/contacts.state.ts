@@ -1,10 +1,10 @@
-import {ChatContact, ChatContentContacts} from '../../chat/model/chat-content-contacts.model';
-import {Action, Selector, State, StateContext} from '@ngxs/store';
-import {ContactsService} from '../../service/contacts.service';
-import {tap} from 'rxjs/operators';
-import {GetChatContact, AddContact, SearchContact} from './contacts.actions';
-import {ChatContentState} from '../chat-content/chat-content.state';
 import {Injectable} from '@angular/core';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
+import {tap} from 'rxjs/operators';
+import {ChatContact, ChatContentContacts} from '../../modules/chat/model/chat-content-contacts.model';
+import {ContactsService} from '../../service/contacts.service';
+import {AddContact, GetChatContact, SearchContact} from './contacts.actions';
+
 
 
 export class ChatContactsStateModel {

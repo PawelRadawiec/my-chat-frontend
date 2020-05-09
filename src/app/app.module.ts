@@ -4,11 +4,9 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HeaderComponent} from './components/header/header.component';
-import {NavComponent} from './chat/components/nav/nav.component';
 import {MainComponent} from './components/main/main.component';
 import {FotterComponent} from './components/fotter/fotter.component';
 import {AppRoutingModule} from './app-routing.module';
-import {MyChatComponent} from './chat/components/my-chat/my-chat.component';
 import {NgxsModule} from '@ngxs/store';
 import {ChatContentState} from './store/chat-content/chat-content.state';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
@@ -18,8 +16,8 @@ import {SystemUserState} from './store/system-user/system-user.state';
 import {AuthorizationState} from './store/authorization/authorization.state';
 import {HttpInterceptorAuthService} from './interceptors/http-interceptor-auth.service';
 import {ChatContactsState} from './store/contacts/contacts.state';
-import {AuthenticationModule} from './authentication-module/authentication.module';
-import {ChatModule} from './chat/chat.module';
+import {AuthenticationModule} from './modules/authentication-module/authentication.module';
+import {ChatModule} from './modules/chat/chat.module';
 
 @NgModule({
   declarations: [

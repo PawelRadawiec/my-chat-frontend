@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
-import {ChatContactsState} from '../../../store/contacts/contacts.state';
-import {AddContact, SearchContact} from '../../../store/contacts/contacts.actions';
 import {SystemUser} from '../../../authentication-module/model/system-user.model';
 import {ChatContact} from '../../model/chat-content-contacts.model';
+import {AddContact, SearchContact} from '../../../../store/contacts/contacts.actions';
+import {ChatContactsState} from '../../../../store/contacts/contacts.state';
 
 @Component({
   selector: 'app-user-list',

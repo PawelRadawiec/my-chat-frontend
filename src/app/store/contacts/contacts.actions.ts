@@ -1,4 +1,4 @@
-import {ChatContact} from 'src/app/chat/model/chat-content-contacts.model';
+import {ChatContact} from '../../modules/chat/model/chat-content-contacts.model';
 
 
 export class GetChatContact {

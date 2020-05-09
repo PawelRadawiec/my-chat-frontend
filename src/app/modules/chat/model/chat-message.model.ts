@@ -1,4 +1,4 @@
-import { ChatContent } from './chat-content.model';
+import {ChatContent} from './chat-content.model';
 
 export class ChatMessage {
   message: string;

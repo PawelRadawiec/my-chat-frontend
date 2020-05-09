@@ -1,5 +1,6 @@
-import {ChatContent} from '../../chat/model/chat-content.model';
-import {ChatMessage} from '../../chat/model/chat-message.model';
+import {ChatContent} from '../../modules/chat/model/chat-content.model';
+import {ChatMessage} from '../../modules/chat/model/chat-message.model';
+
 
 export class ChatContentCreate {
   static readonly type = '[ChatContent] Create';

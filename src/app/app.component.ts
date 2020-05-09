@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Select} from '@ngxs/store';
-import {AuthorizationState} from './store/authorization/authorization.state';
 import {Observable} from 'rxjs';
+import {AuthorizationState} from './store/authorization/authorization.state';
 
 @Component({
   selector: 'app-root',
