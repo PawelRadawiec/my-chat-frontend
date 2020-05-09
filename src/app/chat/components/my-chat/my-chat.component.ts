@@ -1,5 +1,4 @@
 import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Select} from '@ngxs/store';
 import {Observable, Subscription} from 'rxjs';
@@ -27,18 +26,14 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   loggedUser: SystemUser;
   username: string;
   correspondentName: string;
-  stompClient: any;
   scrollBottom = false;
+  stompClient: any;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-  ) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
     this.initForms();
-    this.correspondentName = this.route.snapshot.paramMap.get('username');
     this.subscriptions.push(
       this.loggedUser$.subscribe((user) => {
         if (user) {
@@ -49,6 +44,7 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.chatContent$.subscribe(content => {
         if (content) {
           this.chatContent = content;
+          this.correspondentName = content.correspondent.username;
         }
       })
     );
@@ -68,23 +64,14 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.stompClient = Stomp.over(ws);
     const that = this;
     this.stompClient.connect({}, () => {
-      that.openGlobalSocket();
-      that.openSocket();
+      that.subscribeUserMessage();
     });
   }
 
-  openGlobalSocket() {
+  subscribeUserMessage() {
     const topic = `/topic/message.${this.username}.${this.correspondentName}`;
     this.subscriptions.push(
       this.stompClient.subscribe(topic, (message) => {
-        this.handleResult(message);
-      })
-    );
-  }
-
-  openSocket() {
-    this.subscriptions.push(
-      this.stompClient.subscribe('/topic/' + this.username, (message) => {
         this.handleResult(message);
       })
     );

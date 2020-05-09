@@ -1,7 +1,4 @@
-.username {
-  font-size: small;
-  display: inline;
-}
+
 
 .search-form {
   margin: 10px;
@@ -14,6 +11,6 @@
 }
 
 .table-scroll {
-  height: 200px;
+  height: auto;
   overflow: auto;
 }

@@ -5,5 +5,6 @@ import {SystemUser} from '../../authentication-module/model/system-user.model';
 export class ChatContent {
     id: number;
     owner: SystemUser;
+    correspondent: SystemUser;
     messages: ChatMessage[] = [];
 }

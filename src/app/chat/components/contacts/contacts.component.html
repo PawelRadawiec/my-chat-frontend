@@ -3,20 +3,18 @@
     <thead>
     <tr>
       <th scope="col">contacts</th>
-      <th scope="col">status</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let contact of contacts">
       <td (click)="selectContact(contact)">
-        <div class="username">
-          {{contact.username}}
-        </div>
+        {{contact.username}}
       </td>
       <td>
-        <div class="status">
-          <span class="badge badge-pill badge-{{getContactBadge(contact)}}">{{getContactStatusLabel(contact)}}</span>
-        </div>
+          <span class="badge badge-pill badge-{{getContactBadge(contact)}} ml-5">
+            {{getContactStatusLabel(contact)}}
+          </span>
       </td>
     </tr>
     </tbody>

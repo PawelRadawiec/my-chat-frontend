@@ -15,15 +15,14 @@
   <table class="table table-sm scroll">
     <thead>
     <tr>
-      <th scope="col">Search result</th>
+      <th scope="col">search result</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let contact of searchResult">
       <td>
-        <div class="username">
           {{contact.username}}
-        </div>
       </td>
       <td>
         <button
