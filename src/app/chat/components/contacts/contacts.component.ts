@@ -73,5 +73,19 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.contacts = this.contacts.sort((c1, c2) => c1.active === c2.active ? 1 : -1);
   }
 
+  getContactBadge(contact: ChatContact) {
+    if (!contact) {
+      return;
+    }
+    return contact.active ? 'info' : 'danger';
+  }
+
+  getContactStatusLabel(contact: ChatContact) {
+    if (!contact) {
+      return;
+    }
+    return contact.active ? 'active' : 'logout';
+  }
+
 
 }

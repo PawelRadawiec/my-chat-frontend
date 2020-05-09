@@ -1,7 +1,7 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      Chat
+      Chat with {{correspondentName}}
     </div>
     <div class="card scroll" #scroll (scroll)="onScroll()">
       <ul class="list-group" *ngFor="let message of chatContent.messages">

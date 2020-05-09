@@ -1,8 +1,9 @@
-<div class="table-scroll">
+<div class="table-scroll table-hover">
   <table class="table table-sm">
     <thead>
     <tr>
-      <th scope="col">Contacts</th>
+      <th scope="col">contacts</th>
+      <th scope="col">status</th>
     </tr>
     </thead>
     <tbody>
@@ -11,9 +12,10 @@
         <div class="username">
           {{contact.username}}
         </div>
+      </td>
+      <td>
         <div class="status">
-          <span class="badge badge-pill badge-info" *ngIf="contact.active">active</span>
-          <span class="badge badge-pill badge-danger" *ngIf="!contact.active">logged out</span>
+          <span class="badge badge-pill badge-{{getContactBadge(contact)}}">{{getContactStatusLabel(contact)}}</span>
         </div>
       </td>
     </tr>

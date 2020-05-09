@@ -32,7 +32,7 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 
