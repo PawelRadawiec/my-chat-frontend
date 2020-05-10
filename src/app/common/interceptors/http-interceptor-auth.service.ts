@@ -1,9 +1,9 @@
 import {Store} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {HttpInterceptor, HttpRequest, HttpHandler} from '@angular/common/http';
-import {AuthorizationService} from '../modules/authentication-module/service/authorization.service';
-import {SystemUser} from '../modules/authentication-module/model/system-user.model';
-import {SetSystemUser} from '../store/authorization/authotization.actions';
+import {AuthorizationService} from '../../modules/authentication-module/service/authorization.service';
+import {SystemUser} from '../../modules/authentication-module/model/system-user.model';
+import {SetSystemUser} from '../../store/authorization/authotization.actions';
 
 @Injectable()
 export class HttpInterceptorAuthService implements HttpInterceptor {

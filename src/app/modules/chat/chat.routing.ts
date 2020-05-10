@@ -1,10 +1,10 @@
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MyChatComponent} from './components/my-chat/my-chat.component';
-import {ChatContentResolver} from '../../resolvers/chat-contnt-resolver';
-import {ChatContactsResolver} from '../../resolvers/chat-contacts.resolver';
-import {ChatSystemUserResolver} from '../../resolvers/chat-system-user.resolver';
-import {AuthGuard} from '../../guards/auth.guard';
+import {ChatContentResolver} from '../../common/resolvers/chat-contnt-resolver';
+import {ChatContactsResolver} from '../../common/resolvers/chat-contacts.resolver';
+import {ChatSystemUserResolver} from '../../common/resolvers/chat-system-user.resolver';
+import {AuthGuard} from '../../common/guards/auth.guard';
 
 const routes: Routes = [
   {
