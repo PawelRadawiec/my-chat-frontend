@@ -103,6 +103,7 @@ export class MyChatComponent implements OnInit, OnDestroy, AfterViewChecked {
         content: this.chatContent
       };
       this.stompClient.send('/app/send.message', {}, JSON.stringify(message));
+      this.messageForm.reset();
     }
   }
 
