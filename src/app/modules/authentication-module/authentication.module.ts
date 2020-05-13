@@ -5,11 +5,19 @@ import {LogoutComponent} from './components/logout/logout.component';
 import {RegistrationComponent} from './components/registration/registration.component';
 import {routing} from './authentication.routing';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
     routing
   ],
   declarations: [
@@ -18,6 +26,10 @@ import {ReactiveFormsModule} from '@angular/forms';
     RegistrationComponent
   ],
   exports: [
+    MatStepperModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
     LoginComponent,
     LogoutComponent,
     RegistrationComponent

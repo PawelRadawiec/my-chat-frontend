@@ -2,25 +2,38 @@ import {Injectable} from '@angular/core';
 import {Selector, StateContext} from '@ngxs/store';
 import {Action, State} from '../../../../node_modules/@ngxs/store';
 import {tap, catchError} from 'rxjs/internal/operators';
-import {SystemUser} from '../../modules/authentication-module/model/system-user.model';
+import {RegistrationStep, SystemUser} from '../../modules/authentication-module/model/system-user.model';
 import {SystemUserService} from '../../service/system-user.service';
-import {SystemUserGetList, SystemUserRegistration, SystemUserRegistrationFailed, SystemUserSearch} from './system-user.actions';
+import {
+  RegistrationAccountStep, RegistrationAddressStep,
+  SystemUserGetList,
+  SystemUserRegistration,
+  SystemUserRegistrationFailed,
+  SystemUserSearch
+} from './system-user.actions';
 
 
 export class SystemUserStateModel {
   users?: SystemUser[] = [];
   navSearchUsers?: SystemUser[] = [];
   registered?: SystemUser;
+  nextStep?: RegistrationStep;
+  previousStep?: RegistrationStep;
   errorMap?: { [key: string]: string; };
 }
 
+const DEFAULT_STATE = {
+  users: [],
+  navSearchUsers: [],
+  nextStep: null,
+  previousStep: null,
+  registered: null,
+  errorMap: null
+};
+
 @State<SystemUserStateModel>({
   name: 'systemUser',
-  defaults: {
-    users: [],
-    navSearchUsers: [],
-    registered: null
-  }
+  defaults: DEFAULT_STATE
 })
 @Injectable()
 export class SystemUserState {
@@ -82,6 +95,32 @@ export class SystemUserState {
     );
   }
 
+  @Action(RegistrationAccountStep)
+  accountStep(context: StateContext<SystemUserStateModel>, {systemUser}: RegistrationAccountStep) {
+    return this.userService.registrationStep(systemUser, RegistrationStep.ACCOUNT).pipe(
+      tap((response) => {
+        context.patchState({
+          registered: response,
+          nextStep: RegistrationStep.ADDRESS,
+          previousStep: RegistrationStep.ACCOUNT
+        });
+      })
+    );
+  }
+
+  @Action(RegistrationAddressStep)
+  addressStep(context: StateContext<SystemUserStateModel>, {systemUser}: RegistrationAddressStep) {
+    return this.userService.registrationStep(systemUser, RegistrationStep.ADDRESS).pipe(
+      tap((response) => {
+        context.patchState({
+          registered: response,
+          nextStep: RegistrationStep.ACTIVATION,
+          previousStep: RegistrationStep.ADDRESS
+        });
+      })
+    );
+  }
+
   @Action(SystemUserRegistrationFailed)
   registrationFailed(userState: StateContext<SystemUserStateModel>, {errorMap}: SystemUserRegistrationFailed) {
     userState.setState({
@@ -89,6 +128,5 @@ export class SystemUserState {
       errorMap: errorMap
     });
   }
-
 
 }

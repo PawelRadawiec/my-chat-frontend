@@ -18,6 +18,8 @@ import {HttpInterceptorAuthService} from './common/interceptors/http-interceptor
 import {ChatContactsState} from './store/contacts/contacts.state';
 import {AuthenticationModule} from './modules/authentication-module/authentication.module';
 import {ChatModule} from './modules/chat/chat.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {ChatModule} from './modules/chat/chat.module';
       AuthorizationState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorAuthService, multi: true}

@@ -30,3 +30,19 @@ export class SystemUserRegistrationFailed {
 
   }
 }
+
+export class RegistrationAccountStep {
+  static readonly type = '[SystemUser] RegistrationAccountStep';
+
+  constructor(public systemUser: SystemUser) {
+
+  }
+}
+
+export class RegistrationAddressStep {
+  static readonly type = '[SystemUser] RegistrationAddressStep';
+
+  constructor(public systemUser: SystemUser) {
+
+  }
+}

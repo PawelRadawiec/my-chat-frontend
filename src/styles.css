@@ -59,3 +59,6 @@ ul li a {
     grid-template-rows: auto minmax(60px, auto) 1fr minmax(70px, auto) auto;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
