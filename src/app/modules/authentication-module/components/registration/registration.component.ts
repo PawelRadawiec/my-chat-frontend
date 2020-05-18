@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngxs/store';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Select, Store} from '@ngxs/store';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SystemUser} from '../../model/system-user.model';
+import {RegistrationStep, SystemUser} from '../../model/system-user.model';
 import {ErrorService} from '../../../../service/error.service';
-import {SystemUserRegistration} from '../../../../store/system-user/system-user.actions';
+import {RegistrationAccountStep, RegistrationRequest, SystemUserRegistration} from '../../../../store/system-user/system-user.actions';
 import {MatStepper} from '@angular/material/stepper';
+import {Observable, Subscription} from 'rxjs';
+import {SystemUserState} from '../../../../store/system-user/system-user.state';
+import {Registration} from '../../model/registration.model';
 
 @Component({
   selector: 'app-registration',
@@ -13,10 +16,13 @@ import {MatStepper} from '@angular/material/stepper';
 })
 export class RegistrationComponent implements OnInit {
 
+  @ViewChild('stepper') stepper: MatStepper;
+  @Select(SystemUserState.getRegistration) registration$: Observable<Registration>;
+
+  registration: Registration;
+  subscriptions: Subscription[] = [];
   request: SystemUser;
   registrationForm: FormGroup;
-
-  // just for test
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -30,26 +36,43 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.initRegistrationForm();
+    this.registration = this.setDefaultRegistration();
+    this.subscriptions.push(this.registration$.subscribe(registration => {
+      if (registration) {
+        this.stepper.selectedIndex = this.setSelectedIndex(registration.currentStep);
+        this.registration = registration;
+      }
+    }));
   }
 
-  onSubmit() {
-    const value = this.registrationForm.value;
-    this.request = {
-      username: value.username,
-      email: value.email,
-      password: value.password
-    };
-    this.store.dispatch(new SystemUserRegistration(this.request));
-  }
-
-  goNext(stepper: MatStepper) {
-    stepper.next();
+  goNext() {
+    this.store.dispatch(new RegistrationRequest(this.registration));
   }
 
   goBack(stepper: MatStepper) {
     stepper.previous();
   }
 
+  setDefaultRegistration() {
+    const request: Registration = {
+      previousStep: null,
+      nextStep: RegistrationStep.ADDRESS,
+      currentStep: RegistrationStep.ACCOUNT,
+      user: this.request
+    };
+    return request;
+  }
+
+  setSelectedIndex(step: RegistrationStep) {
+    switch (step) {
+      case RegistrationStep.ACCOUNT:
+        return 0;
+      case RegistrationStep.ADDRESS:
+        return 1;
+      case RegistrationStep.ACTIVATION:
+        return 2;
+    }
+  }
 
   initRegistrationForm() {
     this.registrationForm = this.formBuilder.group({
@@ -60,9 +83,9 @@ export class RegistrationComponent implements OnInit {
 
     // just for test
     this.firstFormGroup = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      email: ['', Validators.required]
+      username: [''],
+      password: [''],
+      email: ['']
     });
     this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]

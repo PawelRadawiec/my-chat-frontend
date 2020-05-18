@@ -1,4 +1,5 @@
 import {SystemUser} from '../../modules/authentication-module/model/system-user.model';
+import {Registration} from '../../modules/authentication-module/model/registration.model';
 
 
 export class SystemUserGetList {
@@ -43,6 +44,14 @@ export class RegistrationAddressStep {
   static readonly type = '[SystemUser] RegistrationAddressStep';
 
   constructor(public systemUser: SystemUser) {
+
+  }
+}
+
+export class RegistrationRequest {
+  static readonly type = '[SystemUser] RegistrationRequest';
+
+  constructor(public request: Registration) {
 
   }
 }

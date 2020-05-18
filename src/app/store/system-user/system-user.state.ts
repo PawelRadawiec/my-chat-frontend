@@ -5,29 +5,28 @@ import {tap, catchError} from 'rxjs/internal/operators';
 import {RegistrationStep, SystemUser} from '../../modules/authentication-module/model/system-user.model';
 import {SystemUserService} from '../../service/system-user.service';
 import {
-  RegistrationAccountStep, RegistrationAddressStep,
+  RegistrationAccountStep, RegistrationAddressStep, RegistrationRequest,
   SystemUserGetList,
   SystemUserRegistration,
   SystemUserRegistrationFailed,
   SystemUserSearch
 } from './system-user.actions';
+import {Registration} from '../../modules/authentication-module/model/registration.model';
 
 
 export class SystemUserStateModel {
   users?: SystemUser[] = [];
   navSearchUsers?: SystemUser[] = [];
   registered?: SystemUser;
-  nextStep?: RegistrationStep;
-  previousStep?: RegistrationStep;
+  registration?: Registration;
   errorMap?: { [key: string]: string; };
 }
 
 const DEFAULT_STATE = {
   users: [],
   navSearchUsers: [],
-  nextStep: null,
-  previousStep: null,
   registered: null,
+  registration: null,
   errorMap: null
 };
 
@@ -39,6 +38,17 @@ const DEFAULT_STATE = {
 export class SystemUserState {
   constructor(private userService: SystemUserService) {
   }
+
+  @Selector()
+  static getRegistered(state: SystemUserStateModel) {
+    return state.registered;
+  }
+
+  @Selector()
+  static getRegistration(state: SystemUserStateModel) {
+    return state.registration;
+  }
+
 
   @Selector()
   static getSystemUserList(state: SystemUserStateModel) {
@@ -95,31 +105,18 @@ export class SystemUserState {
     );
   }
 
-  @Action(RegistrationAccountStep)
-  accountStep(context: StateContext<SystemUserStateModel>, {systemUser}: RegistrationAccountStep) {
-    return this.userService.registrationStep(systemUser, RegistrationStep.ACCOUNT).pipe(
+  @Action(RegistrationRequest)
+  registrationStep(context: StateContext<SystemUserStateModel>, {request}: RegistrationRequest) {
+    return this.userService.registrationRequest(request).pipe(
       tap((response) => {
+        console.log('accountStep response: ', response);
         context.patchState({
-          registered: response,
-          nextStep: RegistrationStep.ADDRESS,
-          previousStep: RegistrationStep.ACCOUNT
+          registration: response
         });
       })
     );
   }
 
-  @Action(RegistrationAddressStep)
-  addressStep(context: StateContext<SystemUserStateModel>, {systemUser}: RegistrationAddressStep) {
-    return this.userService.registrationStep(systemUser, RegistrationStep.ADDRESS).pipe(
-      tap((response) => {
-        context.patchState({
-          registered: response,
-          nextStep: RegistrationStep.ACTIVATION,
-          previousStep: RegistrationStep.ADDRESS
-        });
-      })
-    );
-  }
 
   @Action(SystemUserRegistrationFailed)
   registrationFailed(userState: StateContext<SystemUserStateModel>, {errorMap}: SystemUserRegistrationFailed) {
