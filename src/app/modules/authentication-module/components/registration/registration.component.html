@@ -1,11 +1,34 @@
 <div class="container">
-  <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your account</ng-template>
+  <mat-horizontal-stepper [linear]="false" #stepper>
+    <mat-step [stepControl]="accountFormGroup">
+      <form [formGroup]="accountFormGroup">
+        <ng-template matStepLabel>Account step</ng-template>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>first name</mat-label>
+            <input matInput
+                   placeholder="first name"
+                   formControlName="firstName"
+                   [errorStateMatcher]="errorService.hasError('user.firstName')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.firstName')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>last name</mat-label>
+            <input matInput
+                   placeholder="last name"
+                   formControlName="lastName"
+                   [errorStateMatcher]="errorService.hasError('user.lastName')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.lastName')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
         <div class="form-group">
           <mat-form-field>
             <mat-label>username</mat-label>
@@ -40,6 +63,7 @@
               matInput
               placeholder="password"
               formControlName="password"
+              type="password"
               [errorStateMatcher]="errorService.hasError('user.password')"
             >
             <mat-error>
@@ -52,27 +76,71 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
+    <mat-step [stepControl]="addressFormGroup">
+      <form [formGroup]="addressFormGroup">
+        <ng-template matStepLabel>Address step</ng-template>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>country</mat-label>
+            <input matInput
+                   formControlName="country"
+                   placeholder="country"
+                   [errorStateMatcher]="errorService.hasError('user.address.country')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.address.country')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>city</mat-label>
+            <input matInput
+                   formControlName="city"
+                   placeholder="city"
+                   [errorStateMatcher]="errorService.hasError('user.address.city')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.address.city')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>country</mat-label>
+            <input matInput
+                   formControlName="postalCode"
+                   placeholder="postal code"
+                   [errorStateMatcher]="errorService.hasError('user.address.postalCode')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.address.postalCode')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>street</mat-label>
+            <input matInput
+                   formControlName="street"
+                   placeholder="street"
+                   [errorStateMatcher]="errorService.hasError('user.address.street')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.address.street')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
         <div>
-          <button mat-button (click)="goBack(stepper)">Back</button>
+          <!--just for now-->
+          <!--<button mat-button (click)="goBack(stepper)">Back</button>-->
           <button mat-button (click)="goNext()">Next</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button (click)="goBack(stepper)">Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
+      <p>We are almost ready! Activate your account by clicking an activation link in your email</p>
     </mat-step>
   </mat-horizontal-stepper>
 </div>

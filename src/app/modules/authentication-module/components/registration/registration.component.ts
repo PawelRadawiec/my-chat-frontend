@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {RegistrationStep, SystemUser} from '../../model/system-user.model';
 import {ErrorService} from '../../../../service/error.service';
 import {RegistrationRequest} from '../../../../store/system-user/system-user.actions';
@@ -8,6 +8,7 @@ import {MatStepper} from '@angular/material/stepper';
 import {Observable, Subscription} from 'rxjs';
 import {SystemUserState} from '../../../../store/system-user/system-user.state';
 import {Registration} from '../../model/registration.model';
+import {Address} from '../../model/address.model';
 
 @Component({
   selector: 'app-registration',
@@ -18,14 +19,11 @@ export class RegistrationComponent implements OnInit {
 
   @ViewChild('stepper') stepper: MatStepper;
   @Select(SystemUserState.getRegistration) registration$: Observable<Registration>;
+  private subscriptions: Subscription[] = [];
 
   registration: Registration;
-  subscriptions: Subscription[] = [];
-  request: SystemUser = new SystemUser();
-  registrationForm: FormGroup;
-  isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  accountFormGroup: FormGroup;
+  addressFormGroup: FormGroup;
 
   constructor(
     private store: Store,
@@ -46,7 +44,15 @@ export class RegistrationComponent implements OnInit {
   }
 
   goNext() {
+    const currentStep = this.registration.currentStep;
+    if (currentStep === RegistrationStep.ACCOUNT) {
+      this.registration.user = new SystemUser(this.accountFormGroup.value);
+    }
+    if (currentStep === RegistrationStep.ADDRESS) {
+      this.registration.user.address = new Address(this.addressFormGroup.value);
+    }
     this.store.dispatch(new RegistrationRequest(this.registration));
+
   }
 
   goBack(stepper: MatStepper) {
@@ -58,7 +64,7 @@ export class RegistrationComponent implements OnInit {
       previousStep: null,
       nextStep: RegistrationStep.ADDRESS,
       currentStep: RegistrationStep.ACCOUNT,
-      user: this.request
+      user: new SystemUser()
     };
     return request;
   }
@@ -75,20 +81,18 @@ export class RegistrationComponent implements OnInit {
   }
 
   initRegistrationForm() {
-    this.registrationForm = this.formBuilder.group({
+    this.accountFormGroup = this.formBuilder.group({
       username: [],
+      firstName: [],
+      lastName: [],
       password: [],
       email: []
     });
-
-    // just for test
-    this.firstFormGroup = this.formBuilder.group({
-      username: [''],
-      password: [''],
-      email: ['']
-    });
-    this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.addressFormGroup = this.formBuilder.group({
+      country: [],
+      city: [],
+      street: [],
+      postalCode: []
     });
 
   }
