@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegistrationStep, SystemUser} from '../../model/system-user.model';
 import {ErrorService} from '../../../../service/error.service';
-import {RegistrationAccountStep, RegistrationRequest, SystemUserRegistration} from '../../../../store/system-user/system-user.actions';
+import {RegistrationRequest} from '../../../../store/system-user/system-user.actions';
 import {MatStepper} from '@angular/material/stepper';
 import {Observable, Subscription} from 'rxjs';
 import {SystemUserState} from '../../../../store/system-user/system-user.state';
@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
 
   registration: Registration;
   subscriptions: Subscription[] = [];
-  request: SystemUser;
+  request: SystemUser = new SystemUser();
   registrationForm: FormGroup;
   isLinear = false;
   firstFormGroup: FormGroup;

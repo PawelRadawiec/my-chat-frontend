@@ -19,7 +19,7 @@ import {ChatContactsState} from './store/contacts/contacts.state';
 import {AuthenticationModule} from './modules/authentication-module/authentication.module';
 import {ChatModule} from './modules/chat/chat.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatStepperModule} from '@angular/material/stepper';
+import {ErrorState} from './store/error/error.state';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {MatStepperModule} from '@angular/material/stepper';
       ChatContentState,
       SystemUserState,
       ChatContactsState,
-      AuthorizationState
+      AuthorizationState,
+      ErrorState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

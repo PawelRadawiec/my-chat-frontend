@@ -7,11 +7,3 @@ export class Registration {
   nextStep: RegistrationStep;
 }
 
-
-// private ChatSystemUser user;
-//
-// private RegistrationStep previousStep;
-//
-// private RegistrationStep currentStep;
-//
-// private RegistrationStep nextStep;

@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
-import {Selector, StateContext} from '@ngxs/store';
+import {Selector, StateContext, Store} from '@ngxs/store';
 import {Action, State} from '../../../../node_modules/@ngxs/store';
 import {tap, catchError} from 'rxjs/internal/operators';
-import {RegistrationStep, SystemUser} from '../../modules/authentication-module/model/system-user.model';
+import {SystemUser} from '../../modules/authentication-module/model/system-user.model';
 import {SystemUserService} from '../../service/system-user.service';
 import {
-  RegistrationAccountStep, RegistrationAddressStep, RegistrationRequest,
+  RegistrationRequest,
   SystemUserGetList,
   SystemUserRegistration,
   SystemUserRegistrationFailed,
   SystemUserSearch
 } from './system-user.actions';
 import {Registration} from '../../modules/authentication-module/model/registration.model';
+import {SetErrorMap} from '../error/error.action';
 
 
 export class SystemUserStateModel {
@@ -36,7 +37,10 @@ const DEFAULT_STATE = {
 })
 @Injectable()
 export class SystemUserState {
-  constructor(private userService: SystemUserService) {
+  constructor(
+    private userService: SystemUserService,
+    private store: Store
+  ) {
   }
 
   @Selector()
@@ -113,7 +117,10 @@ export class SystemUserState {
         context.patchState({
           registration: response
         });
-      })
+      }),
+      catchError(err =>
+        this.store.dispatch(new SetErrorMap(err.error))
+      )
     );
   }
 

@@ -9,19 +9,42 @@
         <div class="form-group">
           <mat-form-field>
             <mat-label>username</mat-label>
-            <input matInput placeholder="username" formControlName="username" required>
+            <input matInput
+                   placeholder="username"
+                   formControlName="username"
+                   [errorStateMatcher]="errorService.hasError('user.username')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.username')}}
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
             <mat-label>email</mat-label>
-            <input matInput placeholder="email" formControlName="email" required>
+            <input
+              matInput
+              placeholder="email"
+              formControlName="email"
+              [errorStateMatcher]="errorService.hasError('user.email')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.email')}}
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
             <mat-label>password</mat-label>
-            <input matInput placeholder="password" formControlName="password" required>
+            <input
+              matInput
+              placeholder="password"
+              formControlName="password"
+              [errorStateMatcher]="errorService.hasError('user.password')"
+            >
+            <mat-error>
+              {{errorService.errorMessage('user.password')}}
+            </mat-error>
           </mat-form-field>
         </div>
         <div>
